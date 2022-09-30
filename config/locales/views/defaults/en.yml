@@ -1,0 +1,8 @@
+en:
+  logout_btn: Logout
+  login_btn: Log in
+  create_account_btn: Create account
+  forgot_password_link: Forgot Password Link?
+  shared:
+    navbar:
+      title: Rails
