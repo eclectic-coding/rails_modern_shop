@@ -1,5 +1,4 @@
 class Users::AccountController < ApplicationController
-
   layout "users_account"
 
   def show
@@ -27,5 +26,4 @@ class Users::AccountController < ApplicationController
   helper_method :resource
   helper_method :devise_mapping
   helper_method :resource_class
-
 end

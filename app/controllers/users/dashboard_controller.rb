@@ -13,5 +13,4 @@ class Users::DashboardController < ApplicationController
       redirect_to users_account_show_path
     end
   end
-
 end
