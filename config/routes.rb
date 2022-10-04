@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, lambda { |u| u.role == "admin" } do
     namespace :admin do
 
       resources :users

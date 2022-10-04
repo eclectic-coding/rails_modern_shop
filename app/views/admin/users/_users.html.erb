@@ -21,7 +21,7 @@
             </td>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
-            <td><%= user.admin? %></td>
+            <td class="text-capitalize"><%= user.role %></td>
             <td>
               <div class="d-flex justify-content-end">
                 <%= link_to admin_user_path(user), class: "btn btn-sm btn-faint border shadow-sm ms-1", aria: { label: "User details" } do %>
