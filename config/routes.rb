@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.admin? } do
     namespace :admin do
 
-      resources :users, only: [:index, :new, :create]
+      resources :users
       root "dashboard#index"
     end
   end
