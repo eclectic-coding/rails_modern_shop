@@ -46,3 +46,5 @@ end
 # gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "inline_svg", "~> 1.8"
+
+gem "faraday", "~> 2.6"
