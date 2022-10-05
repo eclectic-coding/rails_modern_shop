@@ -14,4 +14,9 @@
           subtitle: t('admin.dashboard.resource_card.subtitle'),
           resource_index: admin_users_path, resource_new: new_admin_user_path } %>
 
+  <%= render partial: "resource_card", locals: {
+          title: t('admin.dashboard.resource_card.inventory_title'),
+          subtitle: t('admin.dashboard.resource_card.inventory_subtitle'),
+          resource_index: admin_products_path, resource_new: new_admin_product_path } %>
+
 </div>

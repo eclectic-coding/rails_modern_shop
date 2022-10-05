@@ -7,6 +7,8 @@ en:
       resource_card:
         account_title: Accounts
         subtitle: Application users
+        inventory_title: Inventory
+        inventory_subtitle: Products and inventory
     users:
       index:
         title: Users

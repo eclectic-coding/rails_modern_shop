@@ -26,6 +26,12 @@
           <span class="ms-2 fw-600 d-none d-md-inline"><%= t '.users_link' %></span>
         <% end %>
       </li>
+      <li class="nav-item p-2 <%= controller_name == 'products' ? 'admin-active' : '' %>">
+        <%= link_to admin_products_path, class: "text-reset text-decoration-none" do %>
+          <%= inline_svg_tag 'inventory.svg', class: "icon" %>
+          <span class="ms-2 fw-600 d-none d-md-inline"><%= t '.products_link' %></span>
+        <% end %>
+      </li>
     </ul>
     <hr class="w-100" style="height:2px; color:grey;">
     <div class="dropdown mb-3">

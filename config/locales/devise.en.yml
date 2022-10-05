@@ -67,6 +67,8 @@ en:
     dashboard:
       resource_card:
         account_title: ""
+        inventory_title: ""
+        inventory_subtitle: ""
     users:
       index:
         title: ""
@@ -79,4 +81,5 @@ en:
         users_link: ""
         settings_link: ""
         profile_link: ""
+        products_link: ""
 
