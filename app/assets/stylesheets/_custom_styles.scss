@@ -10,7 +10,15 @@
   @media (max-width: 1024px) {
     display: none;
   }
+}
 
+.product-dashboard__icon-sm {
+  height: 1rem;
+  width: 1rem;
+
+  @media (max-width: 1400px) {
+    display: none;
+  }
 }
 
 @font-face {

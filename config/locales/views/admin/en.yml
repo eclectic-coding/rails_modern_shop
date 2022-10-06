@@ -12,4 +12,7 @@ en:
     users:
       index:
         title: Users
+    products:
+      index:
+        inventory_title: Inventory
 

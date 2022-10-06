@@ -18241,6 +18241,16 @@ textarea.form-control-lg {
   }
 }
 
+.product-dashboard__icon-sm {
+  height: 1rem;
+  width: 1rem;
+}
+@media (max-width: 1400px) {
+  .product-dashboard__icon-sm {
+    display: none;
+  }
+}
+
 @font-face {
   font-family: "Baloo 2";
   src: url(asset-path("Baloo2-VariableFont_wght.ttf")) format("truetype");

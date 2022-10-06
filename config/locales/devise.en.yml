@@ -72,6 +72,9 @@ en:
     users:
       index:
         title: ""
+    products:
+      index:
+        inventory_title: ""
   shared:
     navbar:
       admin_navbar:
