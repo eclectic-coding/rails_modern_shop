@@ -7,6 +7,6 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 Dir[Rails.root.join("db", "seeds", "*.rb")].sort.each do |seed|
-  puts "seeding - #{seed}, for real!"
+  Rails.logger.debug { "seeding - #{seed}, for real!" }
   load seed
 end

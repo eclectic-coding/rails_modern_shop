@@ -22,10 +22,8 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_users_path, status: :see_other
-    else
-      redirect_to admin_users_path, status: :see_other
     end
+    redirect_to admin_users_path, status: :see_other
   end
 
   def destroy

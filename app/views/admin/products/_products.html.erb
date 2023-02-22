@@ -1,13 +1,28 @@
 <div class="table-responsive">
   <%= turbo_frame_tag "users" do %>
     <table class="table table-bordered">
-      <thead class="" style="background-color: #eeeeee">
+      <thead style="background-color: #eeeeee">
         <tr>
-          <th scope="col">Stock#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Category</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Price</th>
+          <th id="product-stock" class="position-relative" scope="col">
+            <%= sort_indicator if params[:column] == "stock" %>
+            <%= sort_link(column: "stock", label: "Stock#") %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if params[:column] == "title" %>
+            <%= sort_link(column: "title", label: "Title") %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if params[:column] == "category" %>
+            <%= sort_link(column: "category", label: "Category") %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if params[:column] == "quantity" %>
+            <%= sort_link(column: "quantity", label: "Quantity") %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if params[:column] == "price" %>
+            <%= sort_link(column: "price", label: "Price") %>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -38,11 +53,11 @@
                   <%= inline_svg_tag 'eye.svg', class: "product-dashboard__icon-sm me-1" %>
                   Show
                 <% end %>
-                <%= link_to edit_admin_user_path(product), "data-controller": "turbo", class: "btn btn-sm btn-faint border shadow-sm ms-1" do %>
+                <%= link_to edit_admin_product_path(product), "data-controller": "turbo", class: "btn btn-sm btn-faint border shadow-sm ms-1" do %>
                   <%= inline_svg_tag 'edit.svg', class: "product-dashboard__icon-sm me-1" %>
                   Edit
                 <% end %>
-                <%= button_to admin_user_path(product), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
+                <%= button_to admin_product_path(product), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
                               class: "btn btn-sm btn-faint border shadow-sm ms-1" do %>
                   <%= inline_svg_tag 'trash.svg', class: "product-dashboard__icon-sm me-1" %>
                   Delete

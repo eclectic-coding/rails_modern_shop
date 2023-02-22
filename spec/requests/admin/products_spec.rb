@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Admin::Products", type: :request do
   describe "GET /index" do
@@ -28,5 +28,4 @@ RSpec.describe "Admin::Products", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
-
 end

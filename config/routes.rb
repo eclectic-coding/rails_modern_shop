@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.role == "admin" } do
     namespace :admin do
 
-      resources :products
+      resources :products do
+        collection do
+          get "list"
+        end
+      end
       resources :users
       root "dashboard#index"
     end

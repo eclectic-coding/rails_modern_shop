@@ -8428,7 +8428,7 @@
       }
     }
   };
-  var VERSION = "5.2.1";
+  var VERSION = "5.2.3";
   var BaseComponent = class extends Config {
     constructor(element, config) {
       super();
@@ -9272,7 +9272,7 @@
       super(element, config);
       this._popper = null;
       this._parent = this._element.parentNode;
-      this._menu = SelectorEngine.next(this._element, SELECTOR_MENU)[0] || SelectorEngine.prev(this._element, SELECTOR_MENU)[0];
+      this._menu = SelectorEngine.next(this._element, SELECTOR_MENU)[0] || SelectorEngine.prev(this._element, SELECTOR_MENU)[0] || SelectorEngine.findOne(SELECTOR_MENU, this._parent);
       this._inNavbar = this._detectNavbar();
     }
     static get Default() {
@@ -9497,7 +9497,7 @@
         return;
       }
       event.preventDefault();
-      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0];
+      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
       const instance = Dropdown.getOrCreateInstance(getToggleButton);
       if (isUpOrDownEvent) {
         event.stopPropagation();
@@ -9919,7 +9919,7 @@
       });
       EventHandler.on(this._element, EVENT_MOUSEDOWN_DISMISS, (event) => {
         EventHandler.one(this._element, EVENT_CLICK_DISMISS, (event2) => {
-          if (this._dialog.contains(event.target) || this._dialog.contains(event2.target)) {
+          if (this._element !== event.target || this._element !== event2.target) {
             return;
           }
           if (this._config.backdrop === "static") {
@@ -10479,6 +10479,9 @@
       this._newContent = null;
       this.tip = null;
       this._setListeners();
+      if (!this._config.selector) {
+        this._fixTitle();
+      }
     }
     static get Default() {
       return Default$3;
@@ -10498,20 +10501,11 @@
     toggleEnabled() {
       this._isEnabled = !this._isEnabled;
     }
-    toggle(event) {
+    toggle() {
       if (!this._isEnabled) {
         return;
       }
-      if (event) {
-        const context = this._initializeOnDelegatedTarget(event);
-        context._activeTrigger.click = !context._activeTrigger.click;
-        if (context._isWithActiveTrigger()) {
-          context._enter();
-        } else {
-          context._leave();
-        }
-        return;
-      }
+      this._activeTrigger.click = !this._activeTrigger.click;
       if (this._isShown()) {
         this._leave();
         return;
@@ -10521,11 +10515,8 @@
     dispose() {
       clearTimeout(this._timeout);
       EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
-      if (this.tip) {
-        this.tip.remove();
-      }
-      if (this._config.originalTitle) {
-        this._element.setAttribute("title", this._config.originalTitle);
+      if (this._element.getAttribute("data-bs-original-title")) {
+        this._element.setAttribute("title", this._element.getAttribute("data-bs-original-title"));
       }
       this._disposePopper();
       super.dispose();
@@ -10543,10 +10534,7 @@
       if (showEvent.defaultPrevented || !isInTheDom) {
         return;
       }
-      if (this.tip) {
-        this.tip.remove();
-        this.tip = null;
-      }
+      this._disposePopper();
       const tip = this._getTipElement();
       this._element.setAttribute("aria-describedby", tip.getAttribute("id"));
       const {
@@ -10556,11 +10544,7 @@
         container.append(tip);
         EventHandler.trigger(this._element, this.constructor.eventName(EVENT_INSERTED));
       }
-      if (this._popper) {
-        this._popper.update();
-      } else {
-        this._popper = this._createPopper(tip);
-      }
+      this._popper = this._createPopper(tip);
       tip.classList.add(CLASS_NAME_SHOW$2);
       if ("ontouchstart" in document.documentElement) {
         for (const element of [].concat(...document.body.children)) {
@@ -10600,11 +10584,10 @@
           return;
         }
         if (!this._isHovered) {
-          tip.remove();
+          this._disposePopper();
         }
         this._element.removeAttribute("aria-describedby");
         EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDDEN$2));
-        this._disposePopper();
       };
       this._queueCallback(complete, this.tip, this._isAnimated());
     }
@@ -10661,7 +10644,7 @@
       };
     }
     _getTitle() {
-      return this._resolvePossibleFunction(this._config.title) || this._config.originalTitle;
+      return this._resolvePossibleFunction(this._config.title) || this._element.getAttribute("data-bs-original-title");
     }
     _initializeOnDelegatedTarget(event) {
       return this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
@@ -10733,7 +10716,10 @@
       const triggers = this._config.trigger.split(" ");
       for (const trigger of triggers) {
         if (trigger === "click") {
-          EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK$1), this._config.selector, (event) => this.toggle(event));
+          EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK$1), this._config.selector, (event) => {
+            const context = this._initializeOnDelegatedTarget(event);
+            context.toggle();
+          });
         } else if (trigger !== TRIGGER_MANUAL) {
           const eventIn = trigger === TRIGGER_HOVER ? this.constructor.eventName(EVENT_MOUSEENTER) : this.constructor.eventName(EVENT_FOCUSIN$1);
           const eventOut = trigger === TRIGGER_HOVER ? this.constructor.eventName(EVENT_MOUSELEAVE) : this.constructor.eventName(EVENT_FOCUSOUT$1);
@@ -10755,24 +10741,16 @@
         }
       };
       EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
-      if (this._config.selector) {
-        this._config = {
-          ...this._config,
-          trigger: "manual",
-          selector: ""
-        };
-      } else {
-        this._fixTitle();
-      }
     }
     _fixTitle() {
-      const title = this._config.originalTitle;
+      const title = this._element.getAttribute("title");
       if (!title) {
         return;
       }
       if (!this._element.getAttribute("aria-label") && !this._element.textContent.trim()) {
         this._element.setAttribute("aria-label", title);
       }
+      this._element.setAttribute("data-bs-original-title", title);
       this._element.removeAttribute("title");
     }
     _enter() {
@@ -10829,7 +10807,6 @@
           hide: config.delay
         };
       }
-      config.originalTitle = this._element.getAttribute("title") || "";
       if (typeof config.title === "number") {
         config.title = config.title.toString();
       }
@@ -10845,12 +10822,18 @@
           config[key] = this._config[key];
         }
       }
+      config.selector = false;
+      config.trigger = "manual";
       return config;
     }
     _disposePopper() {
       if (this._popper) {
         this._popper.destroy();
         this._popper = null;
+      }
+      if (this.tip) {
+        this.tip.remove();
+        this.tip = null;
       }
     }
     static jQueryInterface(config) {
@@ -11139,7 +11122,6 @@
   var CLASS_DROPDOWN = "dropdown";
   var SELECTOR_DROPDOWN_TOGGLE = ".dropdown-toggle";
   var SELECTOR_DROPDOWN_MENU = ".dropdown-menu";
-  var SELECTOR_DROPDOWN_ITEM = ".dropdown-item";
   var NOT_SELECTOR_DROPDOWN_TOGGLE = ":not(.dropdown-toggle)";
   var SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]';
   var SELECTOR_OUTER = ".nav-item, .list-group-item";
@@ -11189,7 +11171,6 @@
           element.classList.add(CLASS_NAME_SHOW$1);
           return;
         }
-        element.focus();
         element.removeAttribute("tabindex");
         element.setAttribute("aria-selected", true);
         this._toggleDropDown(element, true);
@@ -11229,6 +11210,9 @@
       const isNext = [ARROW_RIGHT_KEY, ARROW_DOWN_KEY].includes(event.key);
       const nextActiveElement = getNextActiveElement(this._getChildren().filter((element) => !isDisabled(element)), event.target, isNext, true);
       if (nextActiveElement) {
+        nextActiveElement.focus({
+          preventScroll: true
+        });
         Tab.getOrCreateInstance(nextActiveElement).show();
       }
     }
@@ -11281,7 +11265,6 @@
       };
       toggle(SELECTOR_DROPDOWN_TOGGLE, CLASS_NAME_ACTIVE);
       toggle(SELECTOR_DROPDOWN_MENU, CLASS_NAME_SHOW$1);
-      toggle(SELECTOR_DROPDOWN_ITEM, CLASS_NAME_ACTIVE);
       outerElem.setAttribute("aria-expanded", open);
     }
     _setAttributeIfNotExists(element, attribute, value) {
@@ -11427,13 +11410,15 @@
     _onInteraction(event, isInteracting) {
       switch (event.type) {
         case "mouseover":
-        case "mouseout":
+        case "mouseout": {
           this._hasMouseInteraction = isInteracting;
           break;
+        }
         case "focusin":
-        case "focusout":
+        case "focusout": {
           this._hasKeyboardInteraction = isInteracting;
           break;
+        }
       }
       if (isInteracting) {
         this._clearTimeout();
@@ -11474,7 +11459,7 @@
   window.bootstrap = bootstrap_esm_exports;
 })();
 /*!
-  * Bootstrap v5.2.1 (https://getbootstrap.com/)
+  * Bootstrap v5.2.3 (https://getbootstrap.com/)
   * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */

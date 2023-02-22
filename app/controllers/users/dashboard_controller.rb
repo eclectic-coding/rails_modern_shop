@@ -1,5 +1,4 @@
 class Users::DashboardController < ApplicationController
-
   layout "users"
 
   def show

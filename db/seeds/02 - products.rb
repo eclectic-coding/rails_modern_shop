@@ -8,7 +8,7 @@ categories.each do |category|
     name: category.tr(" ", "_").delete("'")
   )
 end
-puts "Seeded Categories"
+Rails.logger.debug "Seeded Categories"
 
 # fake store api - products
 @category_response = Faraday.get "https://fakestoreapi.com/products/categories"
@@ -27,5 +27,4 @@ products.each do |product|
   )
 end
 
-puts "Seeded Products"
-
+Rails.logger.debug "Seeded Products"

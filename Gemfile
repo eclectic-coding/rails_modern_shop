@@ -11,12 +11,15 @@ gem "jsbundling-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "cssbundling-rails"
+gem "image_processing"
 gem "jbuilder"
 gem "redis", "~> 4.0"
 gem "bootsnap", require: false
 gem "devise", branch: "rails_7", github: "DavidColby/devise"
 gem "name_of_person"
 gem "pundit"
+gem "inline_svg", "~> 1.8"
+gem "faraday", "~> 2.6"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
@@ -44,7 +47,3 @@ group :test do
 end
 
 # gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-
-gem "inline_svg", "~> 1.8"
-
-gem "faraday", "~> 2.6"
