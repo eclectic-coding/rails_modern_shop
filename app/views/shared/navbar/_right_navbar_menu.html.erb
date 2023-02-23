@@ -1,7 +1,7 @@
 <ul class="d-flex justify-content-center align-items-center list-unstyled mb-0">
   <% if user_signed_in? %>
-    <% if current_user.admin? %>
-      <%= link_to "Admin", admin_root_path, class: "align-content-center nav-link" %>
+    <% if current_user.role == 'admin' %>
+      <%= link_to "Dashboard", admin_root_path, class: "btn btn-outline-success rounded align-content-center" %>
     <% end %>
     <li class="nav-item mx-3 d-none d-md-block">
       <%= link_to users_root_path, class: "nav-link", aria: { label: "User's dashboard" } do %>
