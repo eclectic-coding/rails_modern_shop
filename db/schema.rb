@@ -70,7 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_174734) do
     t.datetime "remember_created_at"
     t.string "first_name"
     t.string "last_name"
-    t.boolean "admin", default: false
     t.string "role", default: "customer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -7,11 +7,12 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
-    "esbuild": "^0.15.10",
+    "esbuild": "^0.17.0",
+    "esbuild-rails": "^1.0.3",
     "sass": "^1.58.3"
   },
   "scripts": {
-    "build": "node esbuild.config.js",
+    "build": "node esbuild.config.mjs",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --load-path=node_modules"
   },
   "devDependencies": {
