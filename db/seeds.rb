@@ -6,7 +6,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Dir[Rails.root.join("db", "seeds", "*.rb")].sort.each do |seed|
-  Rails.logger.debug { "seeding - #{seed}, for real!" }
-  load seed
-end
+# Dir[Rails.root.join("db", "seeds", "*.rb")].sort.each do |seed|
+#   Rails.logger.debug { "seeding - #{seed}, for real!" }
+#   load seed
+# end
+
+puts "\n== Seeding Database =="
+DatabaseSeederJob.perform_now

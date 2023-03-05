@@ -3,6 +3,8 @@ class Admin::DashboardController < ApplicationController
   layout "admin"
 
   def index
+    @admin = current_user
+    authorize @admin
   end
 
 end
