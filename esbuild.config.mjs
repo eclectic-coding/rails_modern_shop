@@ -4,7 +4,6 @@ import * as esbuild from "esbuild"
 import path from "path"
 import chokidar from "chokidar"
 import http from "http"
-import { setTimeout } from "timers/promises"
 
 const clients = []
 const entryPoints = [
