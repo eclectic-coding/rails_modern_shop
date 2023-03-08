@@ -2,5 +2,5 @@
 #!/usr/bin/env bash
 set -o errexit
 bundle install -j $(nproc)
-bin/rails db:migrate
+bin/setup
 bin/rails assets:precompile
