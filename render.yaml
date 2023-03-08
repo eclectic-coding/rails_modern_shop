@@ -1,0 +1,23 @@
+# render.yaml
+databases:
+  - name: railsshopdb
+    databaseName: railsshopdb
+    user: shopuser
+    plan: free
+
+services:
+  - type: web
+    name: railsshop
+    plan: free
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: railsshopdb
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_SERVE_STATIC_FILES
+        value: true
