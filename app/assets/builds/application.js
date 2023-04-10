@@ -6727,6 +6727,10 @@
   window.Stimulus = application;
 
   // controllers/hello_controller.js
+  var hello_controller_exports = {};
+  __export(hello_controller_exports, {
+    default: () => hello_controller_default
+  });
   var hello_controller_default = class extends Controller {
     connect() {
       this.element.textContent = "Hello World!";
@@ -6734,6 +6738,10 @@
   };
 
   // controllers/modal_controller.js
+  var modal_controller_exports = {};
+  __export(modal_controller_exports, {
+    default: () => modal_controller_default
+  });
   var modal_controller_default = class extends Controller {
     connect() {
       this.modal = new bootstrap.Modal(this.element, {
@@ -6747,6 +6755,10 @@
   };
 
   // controllers/turbo_controller.js
+  var turbo_controller_exports = {};
+  __export(turbo_controller_exports, {
+    default: () => turbo_controller_default
+  });
   var turbo_controller_default = class extends Controller {
     initialize() {
       this.element.setAttribute("data-action", "click->turbo#click");
@@ -6762,10 +6774,14 @@
     }
   };
 
+  // rails:/Users/eclecticcoding/development/projects/rails_modern_shop/app/javascript/controllers/*_controller.js
+  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "modal", module: modal_controller_exports, filename: "./modal_controller.js" }, { name: "turbo", module: turbo_controller_exports, filename: "./turbo_controller.js" }];
+  var controller_default = modules;
+
   // controllers/index.js
-  application.register("hello", hello_controller_default);
-  application.register("modal", modal_controller_default);
-  application.register("turbo", turbo_controller_default);
+  controller_default.forEach((controller) => {
+    application.register(controller.name, controller.module.default);
+  });
 
   // ../../node_modules/bootstrap/dist/js/bootstrap.esm.js
   var bootstrap_esm_exports = {};
