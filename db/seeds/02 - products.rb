@@ -22,7 +22,7 @@ products.each do |product|
     description: product["description"],
     category: Category.find_by(name: product["category"].tr(" ", "_").delete("'")),
     image: product["image"],
-    stock: Faker::Alphanumeric.alphanumeric(number: 10),
+    stock: SecureRandom.urlsafe_base64(12),
     quantity: rand(1..10)
   )
 end
