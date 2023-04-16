@@ -1,6 +1,6 @@
 <div class="table-responsive">
   <%= turbo_frame_tag "users" do %>
-    <table class="table table-bordered">
+    <table class="table">
       <thead style="background-color: #eeeeee">
         <tr>
           <th id="product-stock" class="position-relative" scope="col">
@@ -28,7 +28,7 @@
       </thead>
       <tbody>
         <% @products.each do |product| %>
-          <tr>
+          <tr class="align-middle">
             <td style="width: 50px">
               <span class="d-inline-block text-truncate" style="max-width: 100px"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= product.stock.upcase %>">
@@ -37,7 +37,7 @@
             </td>
             <td class="col-4">
               <span class="d-inline-block text-truncate" style="max-width: 300px">
-                <%= product.title %>
+                <%= link_to product.title, admin_product_path(product) %>
               </span>
             </td>
             <td>
@@ -49,18 +49,10 @@
             <td><%= product.price %></td>
             <td>
               <div class="d-flex justify-content-end">
-                <%= link_to admin_product_path(product), class: "btn btn-sm btn-faint border shadow-sm ms-1", aria: { label: "User details" } do %>
-                  <%= inline_svg_tag 'eye.svg', class: "product-dashboard__icon-sm me-1" %>
-                  Show
-                <% end %>
-                <%= link_to edit_admin_product_path(product), "data-controller": "turbo", class: "btn btn-sm btn-faint border shadow-sm ms-1" do %>
-                  <%= inline_svg_tag 'edit.svg', class: "product-dashboard__icon-sm me-1" %>
-                  Edit
-                <% end %>
-                <%= button_to admin_product_path(product), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
-                              class: "btn btn-sm btn-faint border shadow-sm ms-1" do %>
-                  <%= inline_svg_tag 'trash.svg', class: "product-dashboard__icon-sm me-1" %>
-                  Delete
+                <%= button_to admin_product_path(product),
+                              method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
+                              class: "btn btn-sm text-danger" do %>
+                  <%= inline_svg_tag 'trash.svg', class: "product-dashboard__icon-sm" %>
                 <% end %>
               </div>
             </td>

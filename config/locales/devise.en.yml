@@ -75,6 +75,8 @@ en:
     products:
       index:
         inventory_title: ""
+      show:
+        inventory_show_title: ""
   shared:
     navbar:
       admin_navbar:
@@ -85,4 +87,5 @@ en:
         settings_link: ""
         profile_link: ""
         products_link: ""
+  edit: ""
 

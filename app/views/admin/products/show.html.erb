@@ -1,2 +1,35 @@
-<h1>Admin::Products#show</h1>
-<p>Find me in app/views/admin/products/show.html.erb</p>
+<div class="container container-md-fluid">
+  <div class="row mb-3">
+    <div class="col-12 col-lg-5 justify-content-start align-items-start mb-lg-2">
+      <h1 class="mb-2 mb-lg-0 text-truncate h3"><%= t('.inventory_show_title') %></h1>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="h5 mb-0"><%= @product.title %></h2>
+        <div>
+          <%= link_to t("edit"), edit_admin_product_path(@product), class: "btn btn-primary" %>
+          <%= link_to "Archive", "#", class: "btn btn-outline-danger" %>
+        </div>
+      </div>
+    </div>
+    <card class="card-body">
+      <div class="row justify-content-center">
+        <div class="col-md-4 me-4">
+          <%= image_tag @product.product_img, class: "img-thumbnail" %>
+        </div>
+        <div class="col-md-6">
+          <div><strong>Price: </strong><%= @product.price %></div>
+          <div><strong>Description: </strong><%= @product.description %></div>
+          <div><strong>Stock #: </strong><%= @product.stock %></div>
+          <div><strong>Quantity Available: </strong><%= @product.quantity %></div>
+          <div><strong>Category: </strong><%= @product.category.name.titleize %></div>
+          <div><strong>Created: </strong><%= @product.created_at %></div>
+          <div><strong>Updated: </strong><%= @product.updated_at %></div>
+        </div>
+      </div>
+    </card>
+  </div>
+</div>

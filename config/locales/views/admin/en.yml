@@ -15,4 +15,6 @@ en:
     products:
       index:
         inventory_title: Inventory
+      show:
+        inventory_show_title: Inventory
 
