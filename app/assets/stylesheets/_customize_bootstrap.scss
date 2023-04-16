@@ -1,10 +1,40 @@
-.btn {
-  border-radius: 0;
+/**
+* Set SCSS variables below
+*/
+
+// No decoration to links
+$link-decoration: none;
+$btn-border-radius: 0;
+$input-border-radius: 0;
+
+  // Set theme colors
+$theme-colors: (
+        primary: #234d7b,
+        secondary: #3b3c3e,
+        success: #22c55e,
+        info:  #64c3d2,
+        warning: #f5e74a,
+        danger: #820410,
+        dark: #0f172a,
+        faint: #fff
+);
+
+/**
+* Import bare minimum of bootstrap
+*/
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+/**
+* 3 - Now you can refine Bootstrap here
+*/
+
+// missing utility function
+.cursor-pointer {
+  cursor: pointer;
 }
 
-.form-control {
-  border-radius: 0;
-}
+// bootstrap overrides
 
 .form-label {
   text-transform: uppercase;

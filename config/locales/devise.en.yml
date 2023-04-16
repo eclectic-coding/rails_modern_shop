@@ -63,26 +63,3 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  admin:
-    dashboard:
-      resource_card:
-        account_title: ""
-        inventory_title: ""
-        inventory_subtitle: ""
-    users:
-      index:
-        title: ""
-    products:
-      index:
-        inventory_title: ""
-  shared:
-    navbar:
-      admin_navbar:
-        back_to_app: ""
-        connect: ""
-        home_link: ""
-        users_link: ""
-        settings_link: ""
-        profile_link: ""
-        products_link: ""
-
