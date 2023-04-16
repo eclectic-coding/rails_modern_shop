@@ -5,6 +5,7 @@
 // No decoration to links
 $link-decoration: none;
 $btn-border-radius: 0;
+$input-border-radius: 0;
 
   // Set theme colors
 $theme-colors: (
@@ -34,10 +35,6 @@ $theme-colors: (
 }
 
 // bootstrap overrides
-
-.form-control {
-  border-radius: 0;
-}
 
 .form-label {
   text-transform: uppercase;

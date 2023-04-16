@@ -19,8 +19,4 @@ class Product < ApplicationRecord
     end
   end
 
-  def product_category
-    category.name
-  end
-
 end

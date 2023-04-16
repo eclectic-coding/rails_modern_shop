@@ -17,4 +17,12 @@ en:
         inventory_title: Inventory
       show:
         inventory_show_title: Inventory
+        price: "Price: "
+        description: "Description: "
+        quantity_available: "Quantity Available: "
+        out_of_stock: Out of Stock
+        category: Category
+        added: "Added: "
+        last_updated: "Last Updated:"
+        stock: "Stock #: "
 
