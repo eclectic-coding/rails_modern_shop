@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   has_one_attached :product_img
   before_save :grab_image
 
+  # method runs only on original api import and saves image to ActiveStorage
   def grab_image
     unless image.nil?
       url = URI.parse(image)
