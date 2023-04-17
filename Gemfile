@@ -22,14 +22,13 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "standard", "~> 1.1", ">= 1.1.5", require: false
   gem "capybara"
   gem "webdrivers"
 end
 
 group :development do
   gem "web-console"
+  eval_gemfile "gemfiles/rubocop.gemfile"
 end
 
 # gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-

@@ -382,12 +382,11 @@ DEPENDENCIES
   rails (~> 7.0.4)
   redis (~> 4.0)
   rspec-rails (~> 5.0, >= 5.0.1)
-  rubocop (~> 1.18)
-  rubocop-rails (~> 2.11, >= 2.11.3)
-  rubocop-rspec (~> 2.4)
+  rubocop-rails!
+  rubocop-rspec!
   simplecov (~> 0.21.2)
   sprockets-rails
-  standard (~> 1.1, >= 1.1.5)
+  standard (~> 1.0)!
   stimulus-rails
   turbo-rails
   web-console

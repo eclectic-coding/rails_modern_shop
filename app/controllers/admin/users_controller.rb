@@ -18,7 +18,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-
     render turbo_stream: turbo_stream.replace(
       "user_#{@user.id}",
       partial: "admin/users/user_form",

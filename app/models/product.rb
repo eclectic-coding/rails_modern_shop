@@ -18,5 +18,4 @@ class Product < ApplicationRecord
       product_img.attach(io: file, filename: filename)
     end
   end
-
 end

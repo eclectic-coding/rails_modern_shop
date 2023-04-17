@@ -6,5 +6,4 @@ class Admin::DashboardController < ApplicationController
     @admin = current_user
     authorize @admin
   end
-
 end
