@@ -5,10 +5,9 @@ class User < ApplicationRecord
     :recoverable, :rememberable, :validatable
 
   has_person_name
-  
+
   enum role: {
     admin: "admin",
     customer: "customer"
   }
-
 end

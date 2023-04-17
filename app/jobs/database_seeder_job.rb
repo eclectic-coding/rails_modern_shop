@@ -1,4 +1,4 @@
-require 'securerandom'
+require "securerandom"
 
 class DatabaseSeederJob < ApplicationJob
   queue_as :default

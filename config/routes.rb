@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.role == "admin" } do
     namespace :admin do
-
       resources :products do
         collection do
           get "list"
@@ -16,9 +15,9 @@ Rails.application.routes.draw do
   end
 
   namespace :users do
-    get 'account/show'
-    root 'dashboard#show'
+    get "account/show"
+    root "dashboard#show"
   end
 
-  root to: 'static#home'
+  root to: "static#home"
 end

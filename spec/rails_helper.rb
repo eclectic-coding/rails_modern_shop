@@ -6,8 +6,6 @@ require "rspec/rails"
 require "capybara/rails"
 require "fuubar"
 
-include Warden::Test::Helpers
-
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
 
 begin
@@ -23,5 +21,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  config.fuubar_progress_bar_options = {format: "Completed Tests <%B> %p%% %a"}
+  config.fuubar_progress_bar_options = { format: "Completed Tests <%B> %p%% %a" }
 end
