@@ -6,14 +6,6 @@ import { application } from "./application"
 
 import controllers from "./*_controller.js"
 controllers.forEach((controller) => {
+    console.log(controller.name)
     application.register(controller.name, controller.module.default)
 })
-
-// import HelloController from "./hello_controller"
-// application.register("hello", HelloController)
-//
-// import ModalController from "./modal_controller"
-// application.register("modal", ModalController)
-//
-// import TurboController from "./turbo_controller"
-// application.register("turbo", TurboController)

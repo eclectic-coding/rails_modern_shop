@@ -6733,7 +6733,7 @@
   });
   var hello_controller_default = class extends Controller {
     connect() {
-      this.element.textContent = "Hello World!";
+      console.log("Hello, Stimulus!");
     }
   };
 
@@ -6754,33 +6754,10 @@
     }
   };
 
-  // controllers/turbo_controller.js
-  var turbo_controller_exports = {};
-  __export(turbo_controller_exports, {
-    default: () => turbo_controller_default
-  });
-  var turbo_controller_default = class extends Controller {
-    initialize() {
-      this.element.setAttribute("data-action", "click->turbo#click");
-    }
-    click(e) {
-      e.preventDefault();
-      this.url = this.element.getAttribute("href");
-      fetch(this.url, {
-        headers: {
-          Accept: "text/vnd.turbo-stream.html"
-        }
-      }).then((r) => r.text()).then((html) => Turbo.renderStreamMessage(html));
-    }
-  };
-
-  // rails:/Users/eclecticcoding/development/projects/rails_modern_shop/app/javascript/controllers/*_controller.js
-  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "modal", module: modal_controller_exports, filename: "./modal_controller.js" }, { name: "turbo", module: turbo_controller_exports, filename: "./turbo_controller.js" }];
-  var controller_default = modules;
-
-  // controllers/index.js
-  controller_default.forEach((controller) => {
-    application.register(controller.name, controller.module.default);
+  // controllers/toast_controller.js
+  var toast_controller_exports = {};
+  __export(toast_controller_exports, {
+    default: () => toast_controller_default
   });
 
   // ../../node_modules/bootstrap/dist/js/bootstrap.esm.js
@@ -12092,6 +12069,46 @@
   };
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
+
+  // controllers/toast_controller.js
+  var toast_controller_default = class extends Controller {
+    initialize() {
+      console.log("toast controller initialized");
+    }
+    connect() {
+      new Toast(this.element).show();
+    }
+  };
+
+  // controllers/turbo_controller.js
+  var turbo_controller_exports = {};
+  __export(turbo_controller_exports, {
+    default: () => turbo_controller_default
+  });
+  var turbo_controller_default = class extends Controller {
+    initialize() {
+      this.element.setAttribute("data-action", "click->turbo#click");
+    }
+    click(e) {
+      e.preventDefault();
+      this.url = this.element.getAttribute("href");
+      fetch(this.url, {
+        headers: {
+          Accept: "text/vnd.turbo-stream.html"
+        }
+      }).then((r) => r.text()).then((html) => Turbo.renderStreamMessage(html));
+    }
+  };
+
+  // rails:/Users/eclecticcoding/development/projects/rails_modern_shop/app/javascript/controllers/*_controller.js
+  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "modal", module: modal_controller_exports, filename: "./modal_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "./toast_controller.js" }, { name: "turbo", module: turbo_controller_exports, filename: "./turbo_controller.js" }];
+  var controller_default = modules;
+
+  // controllers/index.js
+  controller_default.forEach((controller) => {
+    console.log(controller.name);
+    application.register(controller.name, controller.module.default);
+  });
 
   // application.js
   window.bootstrap = bootstrap_esm_exports;
