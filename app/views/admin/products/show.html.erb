@@ -31,19 +31,13 @@
           <div class="mb-2"><%= t(".stock") %> <%= @product.stock %></div>
 
           <h3><%= t(".quantity_available") %></h3>
-          <% if @product.quantity.zero? %>
-            <div class="my-2">
-              <span class="badge bg-danger"><%= t(".out_of_stock") %></span>
-            </div>
-          <% else %>
-            <div class="my-2">
-              <%= @product.quantity %>
-            </div>
-          <% end %>
+          <%= product_quantity(@product) %>
           <h3 class="mt-3"><%= t(".category") %></h3>
           <div class="my-2">
             <span class="badge bg-secondary my-2"><%= @product.category.name.titleize %></span>
           </div>
+
+          <%= link_to "Back", admin_products_path, class: "btn btn-primary float-start" %>
         </div>
       </div>
     </div>
