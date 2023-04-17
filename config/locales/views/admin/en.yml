@@ -23,7 +23,7 @@ en:
         out_of_stock: Out of Stock
         category: Category
         added: "Added: "
-        last_updated: "Last Updated:"
+        last_updated: "Last Updated: "
         stock: "Stock #: "
   out_of_stock: Out of Stock
 
