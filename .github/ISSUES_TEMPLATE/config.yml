@@ -1,1 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature Request 🇵🇬
+    url: https://github.com/eclectic-coding/rails_modern_shop/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
+    about: Visit our GitHub Discussions page to suggest an idea to make Forem better.
+  - name: Bug Report 🪲
+    url: https://github.com/eclectic-coding/rails_modern_shop/issues/new?assignees=&labels=bug&template=bug_report.md&title=
+    about: Create a report to help us improve the repository.
 
