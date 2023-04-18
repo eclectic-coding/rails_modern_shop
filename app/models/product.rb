@@ -4,6 +4,15 @@ class Product < ApplicationRecord
   belongs_to :category
 
   has_one_attached :product_img
+
+  validates :title, presence: true
+  validates :price, presence: true
+  validates :description, presence: true
+  validates :stock, presence: true
+  validates :quantity, presence: true
+  validates :category, presence: true
+
+  before_create :create_stock_number
   after_create :grab_image
 
   # method runs only on original api import and saves image to ActiveStorage
@@ -17,5 +26,9 @@ class Product < ApplicationRecord
       Rails.logger.debug { " Set image stream #{file}" }
       product_img.attach(io: file, filename: filename)
     end
+  end
+
+  def create_stock_number
+    self.stock = SecureRandom.hex(12) if stock.nil?
   end
 end

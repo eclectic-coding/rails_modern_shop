@@ -31,8 +31,8 @@
           <tr class="align-middle">
             <td style="width: 50px">
               <span class="d-inline-block text-truncate" style="max-width: 100px"
-                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= product.stock.upcase %>">
-                <%= product.stock.upcase %>
+                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= product.stock unless product.stock.nil?%>">
+                <%= product.stock.upcase unless product.stock.nil?%>
               </span>
             </td>
             <td class="col-4">

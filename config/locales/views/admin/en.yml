@@ -27,5 +27,7 @@ en:
         stock: "Stock #: "
       edit:
         select_category: Select Category
+      new:
+        create_product: Create Product
   out_of_stock: Out of Stock
 
