@@ -10,3 +10,7 @@ en:
     navbar:
       title: Rails
   edit: Edit
+  archive: Archive
+  back_btn: Back
+  cancel: Cancel
+  update: Update

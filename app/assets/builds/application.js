@@ -1,4 +1,4 @@
- (() => new EventSource("http://localhost:3200").onmessage = () => location.reload())();
+ (() => new EventSource("http://localhost:3100").onmessage = () => location.reload())();
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -12072,9 +12072,6 @@
 
   // controllers/toast_controller.js
   var toast_controller_default = class extends Controller {
-    initialize() {
-      console.log("toast controller initialized");
-    }
     connect() {
       new Toast(this.element).show();
     }
@@ -12106,7 +12103,6 @@
 
   // controllers/index.js
   controller_default.forEach((controller) => {
-    console.log(controller.name);
     application.register(controller.name, controller.module.default);
   });
 

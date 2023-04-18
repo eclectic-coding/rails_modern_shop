@@ -1,7 +1,7 @@
 <div class="table-responsive">
   <%= turbo_frame_tag "users" do %>
     <table class="table">
-      <thead style="background-color: #eeeeee">
+      <thead>
         <tr>
           <th id="product-stock" class="position-relative" scope="col">
             <%= sort_indicator if params[:column] == "stock" %>
@@ -49,11 +49,9 @@
             <td><%= number_to_currency product.price %></td>
             <td>
               <div class="d-flex justify-content-end">
-                <%= button_to admin_product_path(product),
+                <%= button_to t("archive"), "#",
                               method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
-                              class: "btn btn-sm text-danger" do %>
-                  <%= inline_svg_tag 'trash.svg', class: "product-dashboard__icon-sm" %>
-                <% end %>
+                              class: "btn btn-sm btn-link" %>
               </div>
             </td>
           </tr>

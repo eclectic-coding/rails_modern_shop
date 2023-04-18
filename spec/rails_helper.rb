@@ -18,6 +18,7 @@ end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
+  config.include Devise::Test::IntegrationHelpers, type: :request # to sign_in user by Devise
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!

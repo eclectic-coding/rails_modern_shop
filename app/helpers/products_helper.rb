@@ -1,17 +1,15 @@
 module ProductsHelper
-  def sort_link(column:, label:)
-    if column == params[:column]
-      link_to(label, list_admin_products_path(column: column, direction: next_direction), class: "text-black text-decoration-none ms-3")
+  def product_quantity(product)
+    if product.quantity.zero?
+      tag.div class: "my-2" do
+        tag.span class: "badge bg-danger" do
+          t(".out_of_stock")
+        end
+      end
     else
-      link_to(label, list_admin_products_path(column: column, direction: "asc"), class: "text-black text-decoration-none ms-3")
+      tag.div class: "col-1 border rounded text-center py-1 my-2" do
+        product.quantity.to_s
+      end
     end
-  end
-
-  def next_direction
-    (params[:direction] == "asc") ? "desc" : "asc"
-  end
-
-  def sort_indicator
-    tag.div(class: "sort sort-#{params[:direction]}")
   end
 end
