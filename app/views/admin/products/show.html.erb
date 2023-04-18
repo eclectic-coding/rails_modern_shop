@@ -11,7 +11,10 @@
         <h2 class="h5 mb-0"><%= @product.title %></h2>
         <div>
           <%= link_to t("edit"), edit_admin_product_path(@product), class: "btn btn-primary" %>
-          <%= link_to "Archive", "#", class: "btn btn-outline-danger" %>
+          <%= link_to archive_admin_product_path(@product),
+                      class: "btn btn-outline-danger" do %>
+            <%= @product.product_available? ? t("archive") : t(".unarchive_btn") %>
+          <% end %>
         </div>
       </div>
     </div>

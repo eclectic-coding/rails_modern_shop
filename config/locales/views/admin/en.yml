@@ -30,4 +30,7 @@ en:
       new:
         create_product: Create Product
   out_of_stock: Out of Stock
+  active: Active
+  archived: Archived
+  unarchived_btn: Archived
 

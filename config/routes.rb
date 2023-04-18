@@ -3,9 +3,12 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.role == "admin" } do
     namespace :admin do
-      resources :products do
+      resources :products, except: :destroy do
         collection do
           get "list"
+        end
+        member do
+          get :archive
         end
       end
       resources :users
