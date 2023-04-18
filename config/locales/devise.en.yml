@@ -73,3 +73,5 @@ en:
       edit:
         edit_title: ""
         select_category: ""
+      new:
+        create_product: ""

@@ -3,9 +3,9 @@ FactoryBot.define do
     title { "MyString" }
     price { "9.99" }
     description { "MyText" }
-    stock { "MyString" }
+    stock { SecureRandom.hex(12) }
     quantity { 1 }
-    category { Category.first }
+    association :category
 
     after(:build) do |product|
       product.product_img.attach(
