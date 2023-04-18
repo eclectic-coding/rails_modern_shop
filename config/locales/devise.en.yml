@@ -68,3 +68,8 @@ en:
   back_btn: ""
   cancel: ""
   update: ""
+  admin:
+    products:
+      edit:
+        edit_title: ""
+        select_category: ""
