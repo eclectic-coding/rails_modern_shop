@@ -61,4 +61,18 @@ RSpec.describe "Admin::Products", type: :request do
       end
     end
   end
+
+  describe "archiving a product" do
+    let(:product) { create(:product) }
+
+    it "toggles archives the product" do
+      product.toggle!(:product_available)
+      expect(product.reload.product_available).to eq(false)
+    end
+
+    it "redirects to the admin products list" do
+      get archive_admin_product_path(product)
+      expect(response).to redirect_to(admin_products_path)
+    end
+  end
 end

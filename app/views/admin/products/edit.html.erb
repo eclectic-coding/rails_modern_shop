@@ -51,6 +51,11 @@
               <%= f.collection_select :category_id, Category.all, :id, :human_name, { include_blank: t(".select_category") }, { class: "form-select" } %>
             </div>
 
+            <div class="mb-3">
+              <%= f.label :product_available, class: "form-label" %>
+              <%= f.select(:product_available, options_for_select([['Active', true], ['Inactive', false]], {class: "form-select", selected: @product.product_available}), {}, {class: "form-select"}) %>
+            </div>
+
             <div class="my-4">
               <%= f.submit t("update"), class: "btn btn-primary me-3" %>
               <%= f.submit t("cancel"), class: "btn btn-outline-primary" %>

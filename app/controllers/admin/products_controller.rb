@@ -1,11 +1,11 @@
 class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :archive]
 
   layout "admin"
 
   def index
-    @products = Product.all
+    @products = Product.all.order(:title)
   end
 
   def show
@@ -44,9 +44,9 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  def destroy
-    @product.destroy
-    redirect_to admin_products_path, status: :see_other
+  def archive
+    @product.toggle!(:product_available)
+    redirect_to admin_products_path, notice: "Product was successfully archived."
   end
 
   def list
@@ -65,6 +65,6 @@ class Admin::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:price, :quantity, :description, :stock, :category_id, :product_img)
+    params.require(:product).permit(:price, :status, :product_available, :quantity, :description, :stock, :category_id, :product_img)
   end
 end

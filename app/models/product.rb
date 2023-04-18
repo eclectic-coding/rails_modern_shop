@@ -12,6 +12,8 @@ class Product < ApplicationRecord
   validates :quantity, presence: true
   validates :category, presence: true
 
+  before_validation :set_status
+
   before_create :create_stock_number
   after_create :grab_image
 
@@ -34,6 +36,14 @@ class Product < ApplicationRecord
         number = SecureRandom.hex(12)
         break number unless Product.exists?(stock: number)
       end
+    end
+  end
+
+  def set_status
+    if quantity.zero?
+      self.status = "inactive"
+    elsif quantity.positive?
+      self.status = "active"
     end
   end
 end

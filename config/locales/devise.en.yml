@@ -75,3 +75,5 @@ en:
         select_category: ""
       new:
         create_product: ""
+  active: ""
+  pending: ""
