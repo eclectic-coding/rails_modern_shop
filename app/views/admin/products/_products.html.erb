@@ -1,7 +1,7 @@
 <div class="table-responsive">
   <%= turbo_frame_tag "users" do %>
     <table class="table">
-      <thead style="background-color: #eeeeee">
+      <thead>
         <tr>
           <th id="product-stock" class="position-relative" scope="col">
             <%= sort_indicator if params[:column] == "stock" %>

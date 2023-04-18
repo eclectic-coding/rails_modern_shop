@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: [:show, :new, :edit, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   layout "admin"
 
@@ -21,6 +21,15 @@ class Admin::ProductsController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      if @product.update(product_params)
+        format.html { redirect_to admin_product_path(@product), notice: "Product was successfully updated." }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -41,5 +50,9 @@ class Admin::ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
+  end
+
+  def product_params
+    params.require(:product).permit(:price, :quantity, :description, :stock, :category_id)
   end
 end

@@ -4,7 +4,7 @@ class Product < ApplicationRecord
   belongs_to :category
 
   has_one_attached :product_img
-  before_save :grab_image
+  after_create :grab_image
 
   # method runs only on original api import and saves image to ActiveStorage
   def grab_image

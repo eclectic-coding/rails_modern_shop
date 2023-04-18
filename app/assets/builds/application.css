@@ -18877,4 +18877,8 @@ h1, .h1, h2, .h2, h3, .h3 {
   border-radius: 5px;
 }
 
+table.table thead {
+  background-color: #eeeeee;
+}
+
 /*# sourceMappingURL=application.css.map */

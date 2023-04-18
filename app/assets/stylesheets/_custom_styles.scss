@@ -78,3 +78,9 @@ h1, h2, h3 {
   background-color: lighten(#0f172a, 5%);
   border-radius: 5px;
 }
+
+table.table {
+  thead {
+    background-color: #eeeeee;
+  }
+}
