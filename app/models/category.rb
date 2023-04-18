@@ -4,5 +4,4 @@ class Category < ApplicationRecord
   def human_name
     name.humanize
   end
-
 end

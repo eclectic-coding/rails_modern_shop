@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   validates :title, presence: true
   validates :price, presence: true
   validates :description, presence: true
-  validates :stock, presence: true
+  validates :stock, presence: true, uniqueness: true
   validates :quantity, presence: true
   validates :category, presence: true
 
@@ -29,6 +29,11 @@ class Product < ApplicationRecord
   end
 
   def create_stock_number
-    self.stock = SecureRandom.hex(12) if stock.nil?
+    if stock.nil?
+      self.stock = loop do
+        number = SecureRandom.hex(12)
+        break number unless Product.exists?(stock: number)
+      end
+    end
   end
 end

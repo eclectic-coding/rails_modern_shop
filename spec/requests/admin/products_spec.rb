@@ -31,8 +31,9 @@ RSpec.describe "Admin::Products", type: :request do
 
   describe "CREATE /admin/products" do
     xit "creates a new product" do
+      product = build(:product)
       expect do
-        post admin_products_path, params: { product: create(:product) }
+        post admin_products_path, params: { product: product }
       end.to change(Product, :count).by(1)
     end
   end
@@ -46,10 +47,18 @@ RSpec.describe "Admin::Products", type: :request do
   end
 
   describe "PATCH /admin/products" do
-    it "updates the requested product" do
-      product = create(:product)
-      patch admin_product_path(product), params: { product: { price: 100 } }
-      expect(product.reload.price).to eq(100)
+    context "with valid parameters" do
+      let("product") { create(:product) }
+
+      it "updates the requested product" do
+        patch admin_product_path(product), params: { product: { price: 100 } }
+        expect(product.reload.price).to eq(100)
+      end
+
+      it "redirects to the product" do
+        patch admin_product_path(product), params: { product: { price: 100 } }
+        expect(response).to redirect_to(admin_product_path(product))
+      end
     end
   end
 end
