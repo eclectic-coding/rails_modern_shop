@@ -19,7 +19,7 @@
             <td>-</td>
             <td>
               <div class="d-flex justify-content-end">
-                <%= button_to admin_user_path(user), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } },
+                <%= button_to admin_user_path(user), method: :delete, form: { data: { turbo_confirm: t("confirm") } },
                               class: "btn btn-sm border-0 mt-1" do %>
                   <%= inline_svg_tag 'trash.svg', class: "user-dashboard__icon-sm text-danger me-1" %>
                 <% end %>
