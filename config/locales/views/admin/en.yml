@@ -17,6 +17,8 @@ en:
         email: Email
         role: Role
         no_orders: "# of Orders"
+      show:
+        users_profile: "%{username}'s Profile"
     products:
       index:
         inventory_title: Inventory
@@ -30,6 +32,7 @@ en:
         added: "Added: "
         last_updated: "Last Updated: "
         stock: "Stock #: "
+        unarchive_btn: Unarchive
       edit:
         select_category: Select Category
       new:
