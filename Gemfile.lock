@@ -196,6 +196,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    pagy (6.0.3)
     parallel (1.22.1)
     parser (3.2.1.0)
       ast (~> 2.4.1)
@@ -376,6 +377,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   name_of_person
+  pagy (~> 6.0, >= 6.0.3)
   pg (~> 1.1)
   puma (~> 5.0)
   pundit
