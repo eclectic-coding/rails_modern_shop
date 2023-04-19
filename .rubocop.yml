@@ -23,6 +23,7 @@ AllCops:
   Exclude:
     - bin/*
     - config/puma.rb
+    - config/initializers/**/*.rb
     - db/**/*.rb
     - gemfiles/*
     - node_modules/*
