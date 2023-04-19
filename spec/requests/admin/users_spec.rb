@@ -1,16 +1,21 @@
 require "rails_helper"
 
 RSpec.describe "Admin::Users", type: :request do
-  describe "GET /index" do
+  before do
+    sign_in create(:user, :admin)
+  end
+
+  describe "GET /admin/index" do
     it "returns http success" do
-      get "/admin/users/index"
+      get admin_users_path
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET /show" do
+  describe "GET /admin/users/show" do
     it "returns http success" do
-      get "/admin/users/show"
+      user = create(:user)
+      get admin_user_path(user)
       expect(response).to have_http_status(:success)
     end
   end
@@ -22,9 +27,9 @@ RSpec.describe "Admin::Users", type: :request do
     end
   end
 
-  describe "GET /edit" do
+  describe "GET /admin/users/edit" do
     it "returns http success" do
-      get "/admin/users/edit"
+      get edit_admin_user_path(create(:user))
       expect(response).to have_http_status(:success)
     end
   end

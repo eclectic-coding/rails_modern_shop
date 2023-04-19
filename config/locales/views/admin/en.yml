@@ -12,6 +12,11 @@ en:
     users:
       index:
         title: Users
+      users:
+        name: Name
+        email: Email
+        role: Role
+        no_orders: "# of Orders"
     products:
       index:
         inventory_title: Inventory
