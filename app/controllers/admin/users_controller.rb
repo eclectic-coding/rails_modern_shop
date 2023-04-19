@@ -18,17 +18,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-    render turbo_stream: turbo_stream.replace(
-      "user_#{@user.id}",
-      partial: "admin/users/user_form",
-      locals: { user: @user }
-    )
   end
 
   def update
-    if @user.update(user_params)
-    end
-    redirect_to admin_users_path, status: :see_other
   end
 
   def destroy

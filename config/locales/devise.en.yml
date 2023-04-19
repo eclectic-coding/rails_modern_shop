@@ -63,17 +63,3 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  archive: ""
-  out_of_stock: ""
-  back_btn: ""
-  cancel: ""
-  update: ""
-  admin:
-    products:
-      edit:
-        edit_title: ""
-        select_category: ""
-      new:
-        create_product: ""
-  active: ""
-  pending: ""
