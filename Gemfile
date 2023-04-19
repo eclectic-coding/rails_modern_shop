@@ -7,7 +7,7 @@ ruby "3.1.2"
 
 eval_gemfile "config/gems/app.rb"
 
-gem "rails", "~> 7.0.4"
+gem "rails", "~> 7.0.4.3"
 gem "sprockets-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
