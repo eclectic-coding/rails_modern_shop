@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def sort_link(column:, label:)
     if column == params[:column]
       link_to(label, list_admin_products_path(column: column, direction: next_direction), class: "text-black text-decoration-none ms-3")

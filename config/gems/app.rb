@@ -5,6 +5,7 @@ gem "name_of_person"
 gem "pundit"
 gem "inline_svg", "~> 1.8"
 gem "faraday", "~> 2.6"
+gem "pagy", "~> 6.0", ">= 6.0.3"
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0", ">= 5.0.1"

@@ -2,56 +2,64 @@
   <%= turbo_frame_tag "users" do %>
     <table class="table">
       <thead>
-        <tr>
-          <th class="position-relative" scope="col">
-            <%= sort_indicator if params[:column] == "title" %>
-            <%= sort_link(column: "title", label: "Title") %>
-          </th>
-          <th class="position-relative" scope="col">
-            <%= sort_indicator if params[:column] == "category" %>
-            <%= sort_link(column: "category", label: "Category") %>
-          </th>
-          <th class="position-relative" scope="col">
-            <%= sort_indicator if params[:column] == "quantity" %>
-            <%= sort_link(column: "quantity", label: "Quantity") %>
-          </th>
-          <th class="position-relative" scope="col">
-            <%= sort_indicator if params[:column] == "price" %>
-            <%= sort_link(column: "price", label: "Price") %>
-          </th>
-          <th class="position-relative" scope="col">
-            <%= sort_indicator if params[:column] == "status" %>
-            <%= sort_link(column: "status", label: "Status") %>
-          </th>
-          <th scope="col"></th>
-        </tr>
+      <tr>
+        <th class="position-relative" scope="col">
+          <%= sort_indicator if params[:column] == "title" %>
+          <%= sort_link(column: "title", label: "Title") %>
+        </th>
+        <th class="position-relative" scope="col">
+          <%= sort_indicator if params[:column] == "category" %>
+          <%= sort_link(column: "category", label: "Category") %>
+        </th>
+        <th class="position-relative" scope="col">
+          <%= sort_indicator if params[:column] == "quantity" %>
+          <%= sort_link(column: "quantity", label: "Quantity") %>
+        </th>
+        <th class="position-relative" scope="col">
+          <%= sort_indicator if params[:column] == "price" %>
+          <%= sort_link(column: "price", label: "Price") %>
+        </th>
+        <th class="position-relative" scope="col">
+          <%= sort_indicator if params[:column] == "status" %>
+          <%= sort_link(column: "status", label: "Status") %>
+        </th>
+        <th scope="col"></th>
+      </tr>
       </thead>
       <tbody>
-        <% @products.each do |product| %>
-          <tr class="align-middle">
-            <td class="col-4">
+      <% products.each do |product| %>
+        <tr class="align-middle">
+          <td class="col-4">
               <span class="d-inline-block text-truncate" style="max-width: 300px">
                 <%= link_to product.title, admin_product_path(product) %>
               </span>
-            </td>
-            <td>
+          </td>
+          <td>
               <span class="d-inline-block text-truncate" style="max-width: 130px">
                 <%= product.category.name.titleize %>
               </span>
-            </td>
-            <td><%= product.quantity %></td>
-            <td><%= number_to_currency product.price %></td>
-            <td><%= product_status(product) %></td>
-            <td>
-              <div class="d-flex justify-content-end">
-                <%= link_to t("archive"), archive_admin_product_path(product),
-                              class: "btn btn-sm btn-link" %>
-              </div>
-            </td>
-          </tr>
+          </td>
+          <td><%= product.quantity %></td>
+          <td><%= number_to_currency product.price %></td>
+          <td><%= product_status(product) %></td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <%= link_to t("archive"), archive_admin_product_path(product),
+                          class: "btn btn-sm btn-link" %>
+            </div>
+          </td>
+        </tr>
 
-        <% end %>
+      <% end %>
       </tbody>
     </table>
+
+    <%= tag.div class: "row" do %>
+      <div class="col-12 d-flex justify-content-between align-items-center px-3">
+        <%== pagy_info(pagy) %>
+        <%== pagy_bootstrap_nav(pagy) %>
+      </div>
+    <% end unless pagy.nil? %>
+
   <% end %>
 </div>

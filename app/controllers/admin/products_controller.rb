@@ -5,7 +5,7 @@ class Admin::ProductsController < ApplicationController
   layout "admin"
 
   def index
-    @products = Product.all.order(:title)
+    @pagy, @products = pagy(Product.all.order(:title), items: 10)
   end
 
   def show
