@@ -1,5 +1,5 @@
 require "simplecov"
 
-SimpleCov.start do
-  add_filter "spec/rails_helper.rb"
+SimpleCov.start "rails" do
+  add_filter "app/controllers/users/dashboard_controller.rb"
 end

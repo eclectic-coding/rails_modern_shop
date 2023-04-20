@@ -7,8 +7,8 @@ RSpec.describe "Users::Dashboards", type: :request do
     it "returns http success" do
       login_as(user)
 
-      get "/users"
-      expect(response).to have_http_status(:success)
+      get users_dashboard_path
+      expect(response).to be_successful
     end
   end
 end

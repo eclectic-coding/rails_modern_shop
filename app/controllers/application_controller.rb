@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     if current_user.role == "admin"
       admin_root_path
     else
-      users_root_path
+      users_dashboard_path
     end
   end
 
