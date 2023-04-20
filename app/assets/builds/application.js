@@ -3701,7 +3701,7 @@
   function setFormMode(mode) {
     session.setFormMode(mode);
   }
-  var Turbo2 = /* @__PURE__ */ Object.freeze({
+  var Turbo = /* @__PURE__ */ Object.freeze({
     __proto__: null,
     navigator: navigator$1,
     session,
@@ -4315,7 +4315,7 @@
       element = element.parentElement;
     }
   })();
-  window.Turbo = Turbo2;
+  window.Turbo = Turbo;
   start();
 
   // ../../node_modules/@hotwired/turbo-rails/app/javascript/turbo/cable.js
@@ -6734,23 +6734,6 @@
   var hello_controller_default = class extends Controller {
     connect() {
       console.log("Hello, Stimulus!");
-    }
-  };
-
-  // controllers/modal_controller.js
-  var modal_controller_exports = {};
-  __export(modal_controller_exports, {
-    default: () => modal_controller_default
-  });
-  var modal_controller_default = class extends Controller {
-    connect() {
-      this.modal = new bootstrap.Modal(this.element, {
-        keyboard: false
-      });
-      this.modal.show();
-    }
-    disconnect() {
-      this.modal.hide();
     }
   };
 
@@ -12077,28 +12060,8 @@
     }
   };
 
-  // controllers/turbo_controller.js
-  var turbo_controller_exports = {};
-  __export(turbo_controller_exports, {
-    default: () => turbo_controller_default
-  });
-  var turbo_controller_default = class extends Controller {
-    initialize() {
-      this.element.setAttribute("data-action", "click->turbo#click");
-    }
-    click(e) {
-      e.preventDefault();
-      this.url = this.element.getAttribute("href");
-      fetch(this.url, {
-        headers: {
-          Accept: "text/vnd.turbo-stream.html"
-        }
-      }).then((r) => r.text()).then((html) => Turbo.renderStreamMessage(html));
-    }
-  };
-
   // rails:/Users/eclecticcoding/development/projects/rails_modern_shop/app/javascript/controllers/*_controller.js
-  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "modal", module: modal_controller_exports, filename: "./modal_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "./toast_controller.js" }, { name: "turbo", module: turbo_controller_exports, filename: "./turbo_controller.js" }];
+  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "./toast_controller.js" }];
   var controller_default = modules;
 
   // controllers/index.js
