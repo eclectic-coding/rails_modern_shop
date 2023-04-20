@@ -2,32 +2,39 @@
   <%= turbo_frame_tag "users" do %>
     <table class="table">
       <thead>
-        <tr>
-          <th scope="col"><%= t(".name") %></th>
-          <th scope="col"><%= t(".email") %></th>
-          <th scope="col"><%= t(".role") %></th>
-          <th scope="col"><%= t(".no_orders") %></th>
-          <th scope="col"></th>
-        </tr>
+      <tr>
+        <th scope="col"><%= t(".name") %></th>
+        <th scope="col"><%= t(".email") %></th>
+        <th scope="col"><%= t(".role") %></th>
+        <th scope="col"><%= t(".no_orders") %></th>
+        <th scope="col"></th>
+      </tr>
       </thead>
       <tbody>
-        <% users.each do |user| %>
-          <%= content_tag :tr, class: "align-middle", id: dom_id(user) do %>
-            <td><%= link_to user.name, admin_user_path(user) %></td>
-            <td><%= user.email %></td>
-            <td class="text-capitalize"><%= user.role %></td>
-            <td>-</td>
-            <td>
-              <div class="d-flex justify-content-end">
-                <%= button_to admin_user_path(user), method: :delete, form: { data: { turbo_confirm: t("confirm") } },
-                              class: "btn btn-sm border-0 mt-1" do %>
-                  <%= inline_svg_tag 'trash.svg', class: "user-dashboard__icon-sm text-danger me-1" %>
-                <% end %>
-              </div>
-            </td>
-          <% end %>
+      <% users.each do |user| %>
+        <%= content_tag :tr, class: "align-middle", id: dom_id(user) do %>
+          <td><%= link_to user.name, admin_user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td class="text-capitalize"><%= user.role %></td>
+          <td>-</td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <%= button_to admin_user_path(user), method: :delete, form: { data: { turbo_confirm: t("confirm") } },
+                            class: "btn btn-sm border-0 mt-1" do %>
+                <%= inline_svg_tag 'trash.svg', class: "user-dashboard__icon-sm text-danger me-1" %>
+              <% end %>
+            </div>
+          </td>
         <% end %>
+      <% end %>
       </tbody>
     </table>
   <% end %>
+
+  <%= tag.div class: "row" do %>
+    <div class="col-12 d-flex justify-content-between align-items-center px-3">
+      <%== pagy_info(pagy) %>
+      <%== pagy_bootstrap_nav(pagy) %>
+    </div>
+  <% end unless pagy.nil? %>
 </div>

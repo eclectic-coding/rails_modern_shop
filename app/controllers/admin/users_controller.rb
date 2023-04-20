@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   layout "admin"
 
   def index
-    @users = User.all
+    @pagy, @users = pagy(User.all.order(:role), items: 10)
   end
 
   def show
