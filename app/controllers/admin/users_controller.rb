@@ -23,11 +23,6 @@ class Admin::UsersController < ApplicationController
   def update
   end
 
-  def destroy
-    @user.destroy
-    redirect_to admin_users_path, status: :see_other
-  end
-
   private
 
   def set_user
