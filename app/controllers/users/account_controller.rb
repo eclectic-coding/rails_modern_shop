@@ -1,5 +1,5 @@
 class Users::AccountController < ApplicationController
-  layout "users_account"
+  layout "devise"
 
   def show
   end
