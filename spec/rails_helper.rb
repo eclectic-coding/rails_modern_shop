@@ -21,7 +21,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Devise::Test::IntegrationHelpers, type: :request # to sign_in user by Devise
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.fuubar_progress_bar_options = { format: "Completed Tests <%B> %p%% %a" }
