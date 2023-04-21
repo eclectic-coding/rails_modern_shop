@@ -2,12 +2,17 @@
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __esm = (fn2, res) => function __init() {
     return fn2 && (res = (0, fn2[__getOwnPropNames(fn2)[0]])(fn2 = 0)), res;
   };
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
   };
 
   // ../../node_modules/@rails/actioncable/src/adapters.js
@@ -6737,6 +6742,21 @@
     }
   };
 
+  // controllers/search_form_controller.js
+  var search_form_controller_exports = {};
+  __export(search_form_controller_exports, {
+    default: () => search_form_controller_default
+  });
+  var search_form_controller_default = class extends Controller {
+    search() {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        this.formTarget.requestSubmit();
+      }, 200);
+    }
+  };
+  __publicField(search_form_controller_default, "targets", ["form"]);
+
   // controllers/toast_controller.js
   var toast_controller_exports = {};
   __export(toast_controller_exports, {
@@ -12061,7 +12081,7 @@
   };
 
   // rails:/Users/eclecticcoding/development/projects/rails_modern_shop/app/javascript/controllers/*_controller.js
-  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "./toast_controller.js" }];
+  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "search-form", module: search_form_controller_exports, filename: "./search_form_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "./toast_controller.js" }];
   var controller_default = modules;
 
   // controllers/index.js
