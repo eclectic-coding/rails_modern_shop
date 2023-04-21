@@ -10,4 +10,10 @@ class User < ApplicationRecord
     admin: "admin",
     customer: "customer"
   }
+
+  FILTER_PARAMS = %i[name column direction].freeze
+
+  def self.filter(filters)
+    User.order("#{filters["column"]} #{filters["direction"]}")
+  end
 end

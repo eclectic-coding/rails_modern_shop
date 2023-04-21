@@ -3,9 +3,18 @@
     <table class="table">
       <thead>
       <tr>
-        <th scope="col"><%= t(".name") %></th>
-        <th scope="col"><%= t(".email") %></th>
-        <th scope="col"><%= t(".role") %></th>
+        <th scope="col" class="position-relative">
+          <%= sort_link(column: "first_name", label: "Name", resource: 'User', link: 'admin_users' ) %>
+          <%= sort_indicator if params[:column] == "first_name" %>
+        </th>
+        <th scope="col" class="position-relative">
+          <%= sort_link(column: "email", label: "Email", resource: 'User', link: 'admin_users' ) %>
+          <%= sort_indicator if params[:column] == "email" %>
+        </th>
+        <th scope="col" class="position-relative">
+          <%= sort_link(column: "role", label: "Role", resource: 'User', link: 'admin_users' ) %>
+          <%= sort_indicator if params[:column] == "role" %>
+        </th>
         <th scope="col"><%= t(".no_orders") %></th>
         <th scope="col"></th>
       </tr>
