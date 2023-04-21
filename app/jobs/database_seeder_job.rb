@@ -12,6 +12,7 @@ class DatabaseSeederJob < ApplicationJob
       create_customer_user
       create_categories
       create_products
+      save_original_imgs
     end
   end
 
@@ -53,7 +54,7 @@ class DatabaseSeederJob < ApplicationJob
     products = JSON.parse(product_response.body)
 
     products.each do |product|
-      Product.find_or_create_by(
+      Product.find_or_create_by!(
         title: product["title"],
         price: product["price"],
         description: product["description"],
@@ -61,6 +62,15 @@ class DatabaseSeederJob < ApplicationJob
         image: product["image"],
         quantity: rand(1..10)
       )
+    end
+  end
+
+  def save_original_imgs
+    Product.all.each do |product|
+      url = URI.parse(product.image)
+      filename = File.basename(url.path)
+      file = URI.parse(product.image).open
+      product.product_img.attach(io: file, filename: filename)
     end
   end
 end
