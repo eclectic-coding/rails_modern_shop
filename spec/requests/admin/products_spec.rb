@@ -8,7 +8,7 @@ RSpec.describe "Admin::Products", type: :request do
   let(:valid_attributes) { create(:product) }
 
   describe "GET /index" do
-    xit "returns http success" do
+    it "returns http success" do
       get admin_products_path
       expect(response).to have_http_status(:success)
     end

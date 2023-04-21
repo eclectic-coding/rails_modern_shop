@@ -5,7 +5,7 @@ RSpec.describe "AdminUsersIndexFilterings", type: :system do
     login_as create(:user, :admin)
   end
 
-  describe "filtering", type: :feature, js: true do
+  describe "filtering", type: :feature do
     it "filters by role" do
       create(:user)
       visit admin_users_path
