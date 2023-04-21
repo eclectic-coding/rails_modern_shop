@@ -5,12 +5,12 @@ class Product < ApplicationRecord
 
   has_one_attached :product_img
 
-  before_validation :create_stock_number
+  after_create :create_stock_number
 
   validates :title, presence: true
   validates :price, presence: true
   validates :description, presence: true
-  validates :stock, presence: true, uniqueness: true
+  # validates :stock, presence: true, uniqueness: true
   validates :quantity, presence: true
   validates :category, presence: true
 
@@ -20,7 +20,6 @@ class Product < ApplicationRecord
         number = SecureRandom.hex(12)
         break number unless Product.exists?(stock: number)
       end
-      self.status = (quantity.positive? ? "active" : "inactive")
     end
   end
 end
