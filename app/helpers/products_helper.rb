@@ -24,13 +24,13 @@ module ProductsHelper
           t(".archived")
         end
       end
-    elsif product.status == "active"
+    elsif product.quantity.positive?
       tag.div class: "my-2" do
         tag.span class: "badge bg-success" do
           t(".active")
         end
       end
-    elsif product.status == "inactive"
+    elsif product.quantity.zero?
       tag.div class: "my-2" do
         tag.span class: "badge bg-danger" do
           t("admin.products.show.out_of_stock")
