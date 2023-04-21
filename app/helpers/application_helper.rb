@@ -5,16 +5,16 @@ module ApplicationHelper
     date.nil? ? "" : date.strftime("%m-%d-%Y %I:%M:%S %p")
   end
 
-  def sort_link(column:, label:)
-    if column == params[:column]
-      link_to(label, list_admin_products_path(column: column, direction: next_direction), class: "text-black text-decoration-none ms-3")
+  def sort_link(column:, label:, resource:, link:)
+    if column == session.dig("#{resource.downcase}_filters", "column")
+      link_to(label, send("list_#{link}_path", column: column, direction: next_direction(resource)))
     else
-      link_to(label, list_admin_products_path(column: column, direction: "asc"), class: "text-black text-decoration-none ms-3")
+      link_to(label, send("list_#{link}_path", column: column, direction: "asc"))
     end
   end
 
-  def next_direction
-    (params[:direction] == "asc") ? "desc" : "asc"
+  def next_direction(resource)
+    (session["#{resource.downcase}_filters"]["direction"] == "asc") ? "desc" : "asc"
   end
 
   def sort_indicator

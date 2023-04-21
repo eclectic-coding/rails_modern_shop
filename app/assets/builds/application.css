@@ -18824,7 +18824,7 @@ textarea.form-control-lg {
 .sort {
   position: absolute;
   top: 1rem;
-  left: 0.5rem;
+  right: 0.5rem;
   width: 0;
   height: 0;
   border-left: 6px solid transparent;

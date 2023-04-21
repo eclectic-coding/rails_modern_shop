@@ -5,23 +5,23 @@
       <tr>
         <th class="position-relative" scope="col">
           <%= sort_indicator if params[:column] == "title" %>
-          <%= sort_link(column: "title", label: "Title") %>
+          <%= sort_link(column: "title", label: "Title", resource: 'Product', link: 'admin_products') %>
         </th>
         <th class="position-relative" scope="col">
           <%= sort_indicator if params[:column] == "category" %>
-          <%= sort_link(column: "category", label: "Category") %>
+          <%= sort_link(column: "category", label: "Category", resource: 'Product', link: 'admin_products') %>
         </th>
         <th class="position-relative" scope="col">
           <%= sort_indicator if params[:column] == "quantity" %>
-          <%= sort_link(column: "quantity", label: "Quantity") %>
+          <%= sort_link(column: "quantity", label: "Quantity", resource: 'Product', link: 'admin_products') %>
         </th>
         <th class="position-relative" scope="col">
           <%= sort_indicator if params[:column] == "price" %>
-          <%= sort_link(column: "price", label: "Price") %>
+          <%= sort_link(column: "price", label: "Price", resource: 'Product', link: 'admin_products') %>
         </th>
         <th class="position-relative" scope="col">
           <%= sort_indicator if params[:column] == "status" %>
-          <%= sort_link(column: "status", label: "Status") %>
+          <%= sort_link(column: "status", label: "Status", resource: 'Product', link: 'admin_products') %>
         </th>
         <th scope="col"></th>
       </tr>

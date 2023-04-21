@@ -1,11 +1,18 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update]
+  include Filterable
 
   layout "admin"
 
   def index
-    @users = User.all
+    @pagy, @users = pagy(User.all.order(:role), items: 10)
+  end
+
+  def list
+    @pagy, @users = pagy(filter!(User), items: 10)
+
+    render(partial: "users", locals: { users: @users, pagy: @pagy })
   end
 
   def show
@@ -21,11 +28,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-  end
-
-  def destroy
-    @user.destroy
-    redirect_to admin_users_path, status: :see_other
   end
 
   private

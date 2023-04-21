@@ -16,7 +16,11 @@ Rails.application.routes.draw do
           get :archive
         end
       end
-      resources :users
+      resources :users, except: :destroy do
+        collection do
+          get "list"
+        end
+      end
 
       root "dashboard#index"
     end

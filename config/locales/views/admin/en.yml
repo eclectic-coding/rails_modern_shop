@@ -12,6 +12,7 @@ en:
     users:
       index:
         title: Users
+        search: Search
       users:
         name: Name
         email: Email

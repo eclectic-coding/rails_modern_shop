@@ -5,7 +5,7 @@ RSpec.describe "Admin::Users", type: :request do
     sign_in create(:user, :admin)
   end
 
-  describe "GET /admin/index" do
+  describe "GET /admin/users/index" do
     it "returns http success" do
       get admin_users_path
       expect(response).to have_http_status(:success)
