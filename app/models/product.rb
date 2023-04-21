@@ -10,7 +10,6 @@ class Product < ApplicationRecord
   validates :title, presence: true
   validates :price, presence: true
   validates :description, presence: true
-  # validates :stock, presence: true, uniqueness: true
   validates :quantity, presence: true
   validates :category, presence: true
 
