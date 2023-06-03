@@ -5,8 +5,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
-eval_gemfile "config/gems/app.rb"
-
 gem "rails", "~> 7.0.4.3"
 gem "sprockets-rails"
 gem "pg", "~> 1.1"
@@ -20,15 +18,34 @@ gem "jbuilder"
 gem "redis", "~> 4.0"
 gem "bootsnap", require: false
 
+# ===== App gems =====
+gem "devise"
+gem "name_of_person"
+gem "pundit"
+gem "inline_svg", "~> 1.8"
+gem "faraday", "~> 2.6"
+gem "pagy", "~> 6.0", ">= 6.0.3"
+
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "capybara"
   gem "webdrivers"
+  gem "rspec-rails", "~> 6.0.0"
+  gem "factory_bot_rails", "~> 6.2"
+  gem "faker", "~> 2.18"
 end
 
 group :development do
   gem "web-console"
+  gem "fuubar", "~> 2.5", ">= 2.5.1"
+  gem "guard", "~> 2.17"
+  gem "guard-rspec", "~> 4.7", ">= 4.7.3"
+
   eval_gemfile "gemfiles/rubocop.gemfile"
+end
+
+group :test do
+  gem "simplecov", "~> 0.21.2", require: false
 end
 
 # gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

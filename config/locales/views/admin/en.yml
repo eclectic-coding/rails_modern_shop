@@ -23,6 +23,8 @@ en:
     products:
       index:
         inventory_title: Inventory
+        select_category: Select Category
+        search_placeholder: Search Title
       show:
         inventory_show_title: Inventory
         price: "Price: "
@@ -38,6 +40,13 @@ en:
         select_category: Select Category
       new:
         create_product: Create Product
+      products:
+        title_label: Title
+        category_label: Category
+        quantity: Quantity
+        price_label: Price
+        status_label: Status
+        no_products_found: No products found
   out_of_stock: Out of Stock
   active: Active
   archived: Archived

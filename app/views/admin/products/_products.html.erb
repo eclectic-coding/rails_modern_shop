@@ -1,56 +1,64 @@
 <div class="table-responsive">
-  <%= turbo_frame_tag "users" do %>
+  <%= turbo_frame_tag "products_table" do %>
     <table class="table">
       <thead>
-      <tr>
-        <th class="position-relative" scope="col">
-          <%= sort_indicator if params[:column] == "title" %>
-          <%= sort_link(column: "title", label: "Title", resource: 'Product', link: 'admin_products') %>
-        </th>
-        <th class="position-relative" scope="col">
-          <%= sort_indicator if params[:column] == "category" %>
-          <%= sort_link(column: "category", label: "Category", resource: 'Product', link: 'admin_products') %>
-        </th>
-        <th class="position-relative" scope="col">
-          <%= sort_indicator if params[:column] == "quantity" %>
-          <%= sort_link(column: "quantity", label: "Quantity", resource: 'Product', link: 'admin_products') %>
-        </th>
-        <th class="position-relative" scope="col">
-          <%= sort_indicator if params[:column] == "price" %>
-          <%= sort_link(column: "price", label: "Price", resource: 'Product', link: 'admin_products') %>
-        </th>
-        <th class="position-relative" scope="col">
-          <%= sort_indicator if params[:column] == "status" %>
-          <%= sort_link(column: "status", label: "Status", resource: 'Product', link: 'admin_products') %>
-        </th>
-        <th scope="col"></th>
-      </tr>
+        <tr>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if session.dig('product_filters', 'column') == "title" %>
+            <%= sort_link(column: "title", label: t('.title_label'), resource: 'Product', link: 'admin_products') %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if session.dig('product_filters', 'column') == "categories.name" %>
+            <%= sort_link(column: "categories.name", label: t('.category_label'), resource: 'Product', link: 'admin_products') %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if session.dig('product_filters', 'column') == "quantity" %>
+            <%= sort_link(column: "quantity", label: t('.quantity'), resource: 'Product', link: 'admin_products') %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if session.dig('product_filters', 'column') == "price" %>
+            <%= sort_link(column: "price", label: t('.price_label'), resource: 'Product', link: 'admin_products') %>
+          </th>
+          <th class="position-relative" scope="col">
+            <%= sort_indicator if session.dig('product_filters', 'column') == "status" %>
+            <%= sort_link(column: "status", label: t('.status_label'), resource: 'Product', link: 'admin_products') %>
+          </th>
+          <th scope="col"></th>
+        </tr>
       </thead>
       <tbody>
-      <% products.each do |product| %>
-        <tr class="align-middle">
-          <td class="col-4">
+        <% if products.blank? %>
+          <tr>
+            <td colspan="6" class="bg-light p-2">
+              <%= t(".no_products_found") %>
+            </td>
+          </tr>
+        <% else %>
+          <% products.each do |product| %>
+            <tr class="align-middle">
+              <td class="col-4">
               <span class="d-inline-block text-truncate" style="max-width: 300px">
                 <%= link_to product.title, admin_product_path(product) %>
               </span>
-          </td>
-          <td>
+              </td>
+              <td>
               <span class="d-inline-block text-truncate" style="max-width: 130px">
                 <%= product.category.name.titleize %>
               </span>
-          </td>
-          <td><%= product.quantity %></td>
-          <td><%= number_to_currency product.price %></td>
-          <td><%= product_status(product) %></td>
-          <td>
-            <div class="d-flex justify-content-end">
-              <%= link_to t("archive"), archive_admin_product_path(product),
-                          class: "btn btn-sm btn-link" %>
-            </div>
-          </td>
-        </tr>
+              </td>
+              <td><%= product.quantity %></td>
+              <td><%= number_to_currency product.price %></td>
+              <td><%= product_status(product) %></td>
+              <td>
+                <div class="d-flex justify-content-end">
+                  <%= link_to t("archive"), archive_admin_product_path(product),
+                              class: "btn btn-sm btn-link" %>
+                </div>
+              </td>
+            </tr>
 
-      <% end %>
+          <% end %>
+        <% end %>
       </tbody>
     </table>
 
