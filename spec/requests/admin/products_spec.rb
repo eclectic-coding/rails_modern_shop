@@ -32,8 +32,8 @@ RSpec.describe "Admin::Products", type: :request do
 
   describe "CREATE /admin/products" do
     context "with valid parameters" do
-      xit "creates a new product" do
-        product = build(:product)
+      it "creates a new product" do
+        product = attributes_for(:product)
         expect do
           post admin_products_path, params: { product: product }
         end.to change(Product, :count).by(1)
@@ -41,8 +41,9 @@ RSpec.describe "Admin::Products", type: :request do
     end
 
     context "with valid parameters" do
-      xit "creates a new product" do
-        product = build(:product)
+      it "creates a new product" do
+        product = attributes_for(:product)
+        product[:title] = nil
         expect do
           post admin_products_path, params: { product: product }
         end.to change(Product, :count).by(0)

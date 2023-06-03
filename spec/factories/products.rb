@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :product do
     title { "MyString" }
-    price { "9.99" }
-    quantity { 1 }
     description { "MyText" }
-    stock { SecureRandom.hex(12) }
+    price { 9.99 }
     category_id { create(:category).id }
+    quantity { 1 }
+    stock { SecureRandom.hex(12) }
     product_available { true }
 
     after(:build) do |product|
