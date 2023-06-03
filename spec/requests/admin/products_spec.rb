@@ -9,6 +9,7 @@ RSpec.describe "Admin::Products", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
+      create_list(:product, 3)
       get admin_products_path
       expect(response).to have_http_status(:success)
     end
@@ -30,11 +31,22 @@ RSpec.describe "Admin::Products", type: :request do
   end
 
   describe "CREATE /admin/products" do
-    xit "creates a new product" do
-      product = build(:product)
-      expect do
-        post admin_products_path, params: { product: product }
-      end.to change(Product, :count).by(1)
+    context "with valid parameters" do
+      xit "creates a new product" do
+        product = build(:product)
+        expect do
+          post admin_products_path, params: { product: product }
+        end.to change(Product, :count).by(1)
+      end
+    end
+
+    context "with valid parameters" do
+      xit "creates a new product" do
+        product = build(:product)
+        expect do
+          post admin_products_path, params: { product: product }
+        end.to change(Product, :count).by(0)
+      end
     end
   end
 

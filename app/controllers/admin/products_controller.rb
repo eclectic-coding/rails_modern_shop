@@ -1,11 +1,19 @@
 class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:show, :edit, :update, :archive]
+  include Filterable
 
   layout "admin"
 
   def index
     @pagy, @products = pagy(Product.all.order(:title), items: 10)
+    @categories = @products.map(&:category).uniq
+  end
+
+  def list
+    @pagy, @products = pagy(filter!(Product), items: 10)
+
+    render(partial: "admin/products/products", locals: { products: @products, pagy: @pagy })
   end
 
   def show
@@ -49,15 +57,6 @@ class Admin::ProductsController < ApplicationController
     redirect_to admin_products_path, notice: "Product was successfully archived."
   end
 
-  def list
-    @products = if params[:column] == "category"
-      Product.joins(:category).merge(Category.order(name: params[:direction]))
-    else
-      Product.order("#{params[:column]} #{params[:direction]}")
-    end
-    render(partial: "admin/products/products", locals: { products: @products })
-  end
-
   private
 
   def set_product
@@ -65,6 +64,8 @@ class Admin::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:price, :status, :product_available, :quantity, :description, :stock, :category_id, :product_img)
+    params.require(:product).permit(
+      :title, :description, :price, :category_id, :product_available, :product_img, :quantity, :stock
+    )
   end
 end

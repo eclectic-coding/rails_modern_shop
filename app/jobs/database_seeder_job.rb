@@ -12,8 +12,9 @@ class DatabaseSeederJob < ApplicationJob
       create_customer_user
       create_categories
       create_products
-      save_original_imgs
     end
+
+    save_image
   end
 
   private
@@ -65,7 +66,7 @@ class DatabaseSeederJob < ApplicationJob
     end
   end
 
-  def save_original_imgs
+  def save_image
     Product.all.each do |product|
       url = URI.parse(product.image)
       filename = File.basename(url.path)
