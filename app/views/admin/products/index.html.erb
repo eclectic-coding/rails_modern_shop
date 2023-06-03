@@ -16,7 +16,7 @@
               <%= f.label :category, class: "visually-hidden" %>
               <%= f.select :category_id,
                            options_from_collection_for_select(@categories, :id, :human_name),
-                           { include_blank: "Select Category" },
+                           { include_blank: t('.select_category') },
                            class: "form-select me-1",
                            data: { action: "change->search-form#search" } %>
             </div>
@@ -24,7 +24,7 @@
               <%= f.label :search, class: "visually-hidden" %>
               <%= f.text_field :search,
                                class: "form-control",
-                               placeholder: "Search Title",
+                               placeholder: t('.search_placeholder'),
                                value: params[:search],
                                data: { action: "input->search-form#search" } %>
             </div>
