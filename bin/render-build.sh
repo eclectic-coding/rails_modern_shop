@@ -1,7 +1,9 @@
-# bin/render-build.sh
 #!/usr/bin/env bash
+
+# exit on error
 set -o errexit
-bundle install -j $(nproc)
-bin/rails db:migrate
-bin/rails post_setup_instructions:perform
-bin/rails assets:precompile
+
+bundle install
+bundle exec rails assets:precompile
+bundle exec rails assets:clean
+bundle exec rails db:migrate

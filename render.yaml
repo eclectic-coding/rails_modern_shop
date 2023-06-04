@@ -3,12 +3,12 @@ databases:
   - name: railsshopdb
     databaseName: railsshopdb
     user: shopuser
-    plan: free
+    plan: starter
 
 services:
   - type: web
     name: railsshop
-    plan: free
+    plan: starter
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
