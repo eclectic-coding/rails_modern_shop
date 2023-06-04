@@ -20,7 +20,7 @@ RSpec.describe "AdminUsersIndexFiltering", type: :system do
 
     it "filters by search" do
       visit admin_users_path
-      fill_in "search", with: "Example User"
+      fill_in "search", with: "User_1"
       expect(page).to have_selector("tbody tr", count: 1)
     end
   end
