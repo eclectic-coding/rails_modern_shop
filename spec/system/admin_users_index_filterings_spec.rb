@@ -8,19 +8,19 @@ RSpec.describe "AdminUsersIndexFiltering", type: :system do
   describe "filtering", type: :system, js: true do
     before do
       login_as create(:user, :admin)
-      create(:user)
+      create(:user, name: "Customer User")
+      visit admin_users_path
     end
 
     it "filters by role" do
-      visit admin_users_path
       expect(page).to have_selector("tbody tr", count: 2)
       select "Admin", from: "role"
       expect(page).to have_selector("tbody tr", count: 1)
     end
 
     it "filters by search" do
-      visit admin_users_path
-      fill_in "search", with: "User_1"
+      expect(page).to have_selector("tbody tr", count: 2)
+      fill_in "search", with: "customer"
       expect(page).to have_selector("tbody tr", count: 1)
     end
   end

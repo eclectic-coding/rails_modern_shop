@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th id="product-title" class="position-relative" scope="col">
+          <th class="position-relative" scope="col">
             <%= sort_indicator if session.dig('product_filters', 'column') == "title" %>
             <%= sort_link(column: "title", label: t('.title_label'), resource: 'Product', link: 'admin_products') %>
           </th>
