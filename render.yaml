@@ -3,7 +3,7 @@ databases:
   - name: railsshopdb
     databaseName: railsshopdb
     user: shopuser
-    plan: free
+    plan: starter
 
 services:
   - type: web
