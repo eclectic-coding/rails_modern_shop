@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="position-relative" scope="col">
+          <th id="product-title" class="position-relative" scope="col">
             <%= sort_indicator if session.dig('product_filters', 'column') == "title" %>
             <%= sort_link(column: "title", label: t('.title_label'), resource: 'Product', link: 'admin_products') %>
           </th>
@@ -20,8 +20,8 @@
             <%= sort_link(column: "price", label: t('.price_label'), resource: 'Product', link: 'admin_products') %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig('product_filters', 'column') == "status" %>
-            <%= sort_link(column: "status", label: t('.status_label'), resource: 'Product', link: 'admin_products') %>
+            <%= sort_indicator if session.dig('product_filters', 'column') == "product_available" %>
+            <%= sort_link(column: "product_available", label: t('.status_label'), resource: 'Product', link: 'admin_products') %>
           </th>
           <th scope="col"></th>
         </tr>
