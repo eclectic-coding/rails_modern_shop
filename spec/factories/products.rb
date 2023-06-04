@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :product do
-    title { "MyString" }
+    sequence(:title) { |n| "Product_#{n}" }
     description { "MyText" }
     price { 9.99 }
     category_id { create(:category).id }
-    quantity { 1 }
+    quantity { rand(8) }
     stock { SecureRandom.hex(12) }
     product_available { true }
 
