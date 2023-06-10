@@ -75,6 +75,17 @@ RSpec.describe "Admin::Products", type: :request do
     end
   end
 
+  describe "PATCH /admin/products" do
+    context "with invalid parameters" do
+      let("product") { create(:product) }
+
+      it "attempts to update the requested product with invalid parameters" do
+        patch admin_product_path(product), params: { product: { title: nil } }
+        expect(response.status).to eq(422)
+      end
+    end
+  end
+
   describe "archiving a product" do
     let(:product) { create(:product) }
 
