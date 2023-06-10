@@ -640,13 +640,11 @@
   (function() {
     if ("submitter" in Event.prototype)
       return;
-    let prototype;
+    let prototype = window.Event.prototype;
     if ("SubmitEvent" in window && /Apple Computer/.test(navigator.vendor)) {
       prototype = window.SubmitEvent.prototype;
     } else if ("SubmitEvent" in window) {
       return;
-    } else {
-      prototype = window.Event.prototype;
     }
     addEventListener("click", clickCaptured, true);
     Object.defineProperty(prototype, "submitter", {
@@ -663,13 +661,13 @@
     FrameLoadingStyle2["lazy"] = "lazy";
   })(FrameLoadingStyle || (FrameLoadingStyle = {}));
   var FrameElement = class extends HTMLElement {
+    static get observedAttributes() {
+      return ["disabled", "complete", "loading", "src"];
+    }
     constructor() {
       super();
       this.loaded = Promise.resolve();
       this.delegate = new FrameElement.delegateConstructor(this);
-    }
-    static get observedAttributes() {
-      return ["disabled", "complete", "loading", "src"];
     }
     connectedCallback() {
       this.delegate.connect();
@@ -1086,7 +1084,7 @@
         credentials: "same-origin",
         headers: this.headers,
         redirect: "follow",
-        body: this.isIdempotent ? null : this.body,
+        body: this.isSafe ? null : this.body,
         signal: this.abortSignal,
         referrer: (_a = this.delegate.referrer) === null || _a === void 0 ? void 0 : _a.href
       };
@@ -1096,8 +1094,8 @@
         Accept: "text/html, application/xhtml+xml"
       };
     }
-    get isIdempotent() {
-      return this.method == FetchMethod.get;
+    get isSafe() {
+      return this.method === FetchMethod.get;
     }
     get abortSignal() {
       return this.abortController.signal;
@@ -1155,15 +1153,15 @@
     }
   };
   var StreamMessage = class {
-    constructor(fragment) {
-      this.fragment = importStreamElements(fragment);
-    }
     static wrap(message) {
       if (typeof message == "string") {
         return new this(createDocumentFragment(message));
       } else {
         return message;
       }
+    }
+    constructor(fragment) {
+      this.fragment = importStreamElements(fragment);
     }
   };
   StreamMessage.contentType = "text/vnd.turbo-stream.html";
@@ -1203,6 +1201,9 @@
     }
   }
   var FormSubmission = class {
+    static confirmMethod(message, _element, _submitter) {
+      return Promise.resolve(confirm(message));
+    }
     constructor(delegate, formElement, submitter, mustRedirect = false) {
       this.state = FormSubmissionState.initialized;
       this.delegate = delegate;
@@ -1215,9 +1216,6 @@
       }
       this.fetchRequest = new FetchRequest(this, this.method, this.location, this.body, this.formElement);
       this.mustRedirect = mustRedirect;
-    }
-    static confirmMethod(message, _element, _submitter) {
-      return Promise.resolve(confirm(message));
     }
     get method() {
       var _a;
@@ -1244,8 +1242,8 @@
       var _a;
       return formEnctypeFromString(((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("formenctype")) || this.formElement.enctype);
     }
-    get isIdempotent() {
-      return this.fetchRequest.isIdempotent;
+    get isSafe() {
+      return this.fetchRequest.isSafe;
     }
     get stringFormData() {
       return [...this.formData].reduce((entries, [name, value]) => {
@@ -1275,7 +1273,7 @@
       }
     }
     prepareRequest(request) {
-      if (!request.isIdempotent) {
+      if (!request.isSafe) {
         const token = getCookieValue(getMetaContent("csrf-param")) || getMetaContent("csrf-token");
         if (token) {
           request.headers["X-CSRF-Token"] = token;
@@ -1289,6 +1287,7 @@
       var _a;
       this.state = FormSubmissionState.waiting;
       (_a = this.submitter) === null || _a === void 0 ? void 0 : _a.setAttribute("disabled", "");
+      this.setSubmitsWith();
       dispatch("turbo:submit-start", {
         target: this.formElement,
         detail: { formSubmission: this }
@@ -1322,17 +1321,44 @@
       var _a;
       this.state = FormSubmissionState.stopped;
       (_a = this.submitter) === null || _a === void 0 ? void 0 : _a.removeAttribute("disabled");
+      this.resetSubmitterText();
       dispatch("turbo:submit-end", {
         target: this.formElement,
         detail: Object.assign({ formSubmission: this }, this.result)
       });
       this.delegate.formSubmissionFinished(this);
     }
+    setSubmitsWith() {
+      if (!this.submitter || !this.submitsWith)
+        return;
+      if (this.submitter.matches("button")) {
+        this.originalSubmitText = this.submitter.innerHTML;
+        this.submitter.innerHTML = this.submitsWith;
+      } else if (this.submitter.matches("input")) {
+        const input = this.submitter;
+        this.originalSubmitText = input.value;
+        input.value = this.submitsWith;
+      }
+    }
+    resetSubmitterText() {
+      if (!this.submitter || !this.originalSubmitText)
+        return;
+      if (this.submitter.matches("button")) {
+        this.submitter.innerHTML = this.originalSubmitText;
+      } else if (this.submitter.matches("input")) {
+        const input = this.submitter;
+        input.value = this.originalSubmitText;
+      }
+    }
     requestMustRedirect(request) {
-      return !request.isIdempotent && this.mustRedirect;
+      return !request.isSafe && this.mustRedirect;
     }
     requestAcceptsTurboStreamResponse(request) {
-      return !request.isIdempotent || hasAttribute("data-turbo-stream", this.submitter, this.formElement);
+      return !request.isSafe || hasAttribute("data-turbo-stream", this.submitter, this.formElement);
+    }
+    get submitsWith() {
+      var _a;
+      return (_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("data-turbo-submits-with");
     }
   };
   function buildFormData(formElement, submitter) {
@@ -1561,8 +1587,8 @@
     }
   };
   var FrameView = class extends View {
-    invalidate() {
-      this.element.innerHTML = "";
+    missing() {
+      this.element.innerHTML = `<strong class="turbo-frame-error">Content missing</strong>`;
     }
     get snapshot() {
       return new Snapshot(this.element);
@@ -1710,15 +1736,15 @@
     }
   };
   var Bardo = class {
-    constructor(delegate, permanentElementMap) {
-      this.delegate = delegate;
-      this.permanentElementMap = permanentElementMap;
-    }
     static async preservingPermanentElements(delegate, permanentElementMap, callback) {
       const bardo = new this(delegate, permanentElementMap);
       bardo.enter();
       await callback();
       bardo.leave();
+    }
+    constructor(delegate, permanentElementMap) {
+      this.delegate = delegate;
+      this.permanentElementMap = permanentElementMap;
     }
     enter() {
       for (const id in this.permanentElementMap) {
@@ -1824,10 +1850,6 @@
     return element && typeof element.focus == "function";
   }
   var FrameRenderer = class extends Renderer {
-    constructor(delegate, currentSnapshot, newSnapshot, renderElement, isPreview, willRender = true) {
-      super(currentSnapshot, newSnapshot, renderElement, isPreview, willRender);
-      this.delegate = delegate;
-    }
     static renderElement(currentElement, newElement) {
       var _a;
       const destinationRange = document.createRange();
@@ -1839,6 +1861,10 @@
         sourceRange.selectNodeContents(frameElement);
         currentElement.appendChild(sourceRange.extractContents());
       }
+    }
+    constructor(delegate, currentSnapshot, newSnapshot, renderElement, isPreview, willRender = true) {
+      super(currentSnapshot, newSnapshot, renderElement, isPreview, willRender);
+      this.delegate = delegate;
     }
     get shouldRender() {
       return true;
@@ -1895,18 +1921,6 @@
     }
   }
   var ProgressBar = class {
-    constructor() {
-      this.hiding = false;
-      this.value = 0;
-      this.visible = false;
-      this.trickle = () => {
-        this.setValue(this.value + Math.random() / 100);
-      };
-      this.stylesheetElement = this.createStylesheetElement();
-      this.progressElement = this.createProgressElement();
-      this.installStylesheetElement();
-      this.setValue(0);
-    }
     static get defaultCSS() {
       return unindent`
       .turbo-progress-bar {
@@ -1923,6 +1937,18 @@
         transform: translate3d(0, 0, 0);
       }
     `;
+    }
+    constructor() {
+      this.hiding = false;
+      this.value = 0;
+      this.visible = false;
+      this.trickle = () => {
+        this.setValue(this.value + Math.random() / 100);
+      };
+      this.stylesheetElement = this.createStylesheetElement();
+      this.progressElement = this.createProgressElement();
+      this.installStylesheetElement();
+      this.setValue(0);
     }
     show() {
       if (!this.visible) {
@@ -2078,10 +2104,6 @@
     return element;
   }
   var PageSnapshot = class extends Snapshot {
-    constructor(element, headSnapshot) {
-      super(element);
-      this.headSnapshot = headSnapshot;
-    }
     static fromHTMLString(html = "") {
       return this.fromDocument(parseHTMLDocument(html));
     }
@@ -2090,6 +2112,10 @@
     }
     static fromDocument({ head, body }) {
       return new this(body, new HeadSnapshot(head));
+    }
+    constructor(element, headSnapshot) {
+      super(element);
+      this.headSnapshot = headSnapshot;
     }
     clone() {
       const clonedElement = this.element.cloneNode(true);
@@ -2582,10 +2608,11 @@
   };
   var CacheObserver = class {
     constructor() {
+      this.selector = "[data-turbo-temporary]";
+      this.deprecatedSelector = "[data-turbo-cache=false]";
       this.started = false;
-      this.removeStaleElements = (_event) => {
-        const staleElements = [...document.querySelectorAll('[data-turbo-cache="false"]')];
-        for (const element of staleElements) {
+      this.removeTemporaryElements = (_event) => {
+        for (const element of this.temporaryElements) {
           element.remove();
         }
       };
@@ -2593,14 +2620,24 @@
     start() {
       if (!this.started) {
         this.started = true;
-        addEventListener("turbo:before-cache", this.removeStaleElements, false);
+        addEventListener("turbo:before-cache", this.removeTemporaryElements, false);
       }
     }
     stop() {
       if (this.started) {
         this.started = false;
-        removeEventListener("turbo:before-cache", this.removeStaleElements, false);
+        removeEventListener("turbo:before-cache", this.removeTemporaryElements, false);
       }
+    }
+    get temporaryElements() {
+      return [...document.querySelectorAll(this.selector), ...this.temporaryElementsWithDeprecation];
+    }
+    get temporaryElementsWithDeprecation() {
+      const elements = document.querySelectorAll(this.deprecatedSelector);
+      if (elements.length) {
+        console.warn(`The ${this.deprecatedSelector} selector is deprecated and will be removed in a future version. Use ${this.selector} instead.`);
+      }
+      return [...elements];
     }
   };
   var FrameRedirector = class {
@@ -2791,7 +2828,7 @@
       if (formSubmission == this.formSubmission) {
         const responseHTML = await fetchResponse.responseHTML;
         if (responseHTML) {
-          const shouldCacheSnapshot = formSubmission.method == FetchMethod.get;
+          const shouldCacheSnapshot = formSubmission.isSafe;
           if (!shouldCacheSnapshot) {
             this.view.clearSnapshotCache();
           }
@@ -3726,6 +3763,8 @@
     setFormMode,
     StreamActions
   });
+  var TurboFrameMissingError = class extends Error {
+  };
   var FrameController = class {
     constructor(element) {
       this.fetchResponseLoaded = (_fetchResponse) => {
@@ -3826,27 +3865,14 @@
       try {
         const html = await fetchResponse.responseHTML;
         if (html) {
-          const { body } = parseHTMLDocument(html);
-          const newFrameElement = await this.extractForeignFrameElement(body);
-          if (newFrameElement) {
-            const snapshot = new Snapshot(newFrameElement);
-            const renderer = new FrameRenderer(this, this.view.snapshot, snapshot, FrameRenderer.renderElement, false, false);
-            if (this.view.renderPromise)
-              await this.view.renderPromise;
-            this.changeHistory();
-            await this.view.render(renderer);
-            this.complete = true;
-            session.frameRendered(fetchResponse, this.element);
-            session.frameLoaded(this.element);
-            this.fetchResponseLoaded(fetchResponse);
-          } else if (this.willHandleFrameMissingFromResponse(fetchResponse)) {
-            console.warn(`A matching frame for #${this.element.id} was missing from the response, transforming into full-page Visit.`);
-            this.visitResponse(fetchResponse.response);
+          const document2 = parseHTMLDocument(html);
+          const pageSnapshot = PageSnapshot.fromDocument(document2);
+          if (pageSnapshot.isVisitable) {
+            await this.loadFrameResponse(fetchResponse, document2);
+          } else {
+            await this.handleUnvisitableFrameResponse(fetchResponse);
           }
         }
-      } catch (error2) {
-        console.error(error2);
-        this.view.invalidate();
       } finally {
         this.fetchResponseLoaded = () => {
         };
@@ -3900,7 +3926,6 @@
       this.resolveVisitPromise();
     }
     async requestFailedWithResponse(request, response) {
-      console.error(response);
       await this.loadResponse(response);
       this.resolveVisitPromise();
     }
@@ -3918,9 +3943,13 @@
       const frame = this.findFrameElement(formSubmission.formElement, formSubmission.submitter);
       frame.delegate.proposeVisitIfNavigatedWithAction(frame, formSubmission.formElement, formSubmission.submitter);
       frame.delegate.loadResponse(response);
+      if (!formSubmission.isSafe) {
+        session.clearCache();
+      }
     }
     formSubmissionFailedWithResponse(formSubmission, fetchResponse) {
       this.element.delegate.loadResponse(fetchResponse);
+      session.clearCache();
     }
     formSubmissionErrored(formSubmission, error2) {
       console.error(error2);
@@ -3949,6 +3978,23 @@
     }
     willRenderFrame(currentElement, _newElement) {
       this.previousFrameElement = currentElement.cloneNode(true);
+    }
+    async loadFrameResponse(fetchResponse, document2) {
+      const newFrameElement = await this.extractForeignFrameElement(document2.body);
+      if (newFrameElement) {
+        const snapshot = new Snapshot(newFrameElement);
+        const renderer = new FrameRenderer(this, this.view.snapshot, snapshot, FrameRenderer.renderElement, false, false);
+        if (this.view.renderPromise)
+          await this.view.renderPromise;
+        this.changeHistory();
+        await this.view.render(renderer);
+        this.complete = true;
+        session.frameRendered(fetchResponse, this.element);
+        session.frameLoaded(this.element);
+        this.fetchResponseLoaded(fetchResponse);
+      } else if (this.willHandleFrameMissingFromResponse(fetchResponse)) {
+        this.handleFrameMissingFromResponse(fetchResponse);
+      }
     }
     async visit(url) {
       var _a;
@@ -4003,6 +4049,10 @@
         session.history.update(method, expandURL(this.element.src || ""), this.restorationIdentifier);
       }
     }
+    async handleUnvisitableFrameResponse(fetchResponse) {
+      console.warn(`The response (${fetchResponse.statusCode}) from <turbo-frame id="${this.element.id}"> is performing a full page visit due to turbo-visit-control.`);
+      await this.visitResponse(fetchResponse.response);
+    }
     willHandleFrameMissingFromResponse(fetchResponse) {
       this.element.setAttribute("complete", "");
       const response = fetchResponse.response;
@@ -4019,6 +4069,14 @@
         cancelable: true
       });
       return !event.defaultPrevented;
+    }
+    handleFrameMissingFromResponse(fetchResponse) {
+      this.view.missing();
+      this.throwFrameMissingError(fetchResponse);
+    }
+    throwFrameMissingError(fetchResponse) {
+      const message = `The response (${fetchResponse.statusCode}) did not contain the expected <turbo-frame id="${this.element.id}"> and will be ignored. To perform a full page visit instead, set turbo-visit-control to reload.`;
+      throw new TurboFrameMissingError(message);
     }
     async visitResponse(response) {
       const wrapped = new FetchResponse(response);
@@ -4361,7 +4419,11 @@
   var TurboCableStreamSourceElement = class extends HTMLElement {
     async connectedCallback() {
       connectStreamSource(this);
-      this.subscription = await subscribeTo(this.channel, { received: this.dispatchMessageEvent.bind(this) });
+      this.subscription = await subscribeTo(this.channel, {
+        received: this.dispatchMessageEvent.bind(this),
+        connected: this.subscriptionConnected.bind(this),
+        disconnected: this.subscriptionDisconnected.bind(this)
+      });
     }
     disconnectedCallback() {
       disconnectStreamSource(this);
@@ -4371,6 +4433,12 @@
     dispatchMessageEvent(data) {
       const event = new MessageEvent("message", { data });
       return this.dispatchEvent(event);
+    }
+    subscriptionConnected() {
+      this.setAttribute("connected", "");
+    }
+    subscriptionDisconnected() {
+      this.removeAttribute("connected");
     }
     get channel() {
       const channel = this.getAttribute("channel");
@@ -6968,7 +7036,7 @@
   // ../../node_modules/@popperjs/core/lib/utils/userAgent.js
   function getUAString() {
     var uaData = navigator.userAgentData;
-    if (uaData != null && uaData.brands) {
+    if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) {
       return uaData.brands.map(function(item) {
         return item.brand + "/" + item.version;
       }).join(" ");
@@ -7212,15 +7280,7 @@
         return;
       }
     }
-    if (true) {
-      if (!isHTMLElement(arrowElement)) {
-        console.error(['Popper: "arrow" element must be an HTMLElement (not an SVGElement).', "To use an SVG arrow, wrap it in an HTMLElement that will be used as", "the arrow."].join(" "));
-      }
-    }
     if (!contains(state.elements.popper, arrowElement)) {
-      if (true) {
-        console.error(['Popper: "arrow" modifier\'s `element` must be a child of the popper', "element."].join(" "));
-      }
       return;
     }
     state.elements.arrow = arrowElement;
@@ -7247,9 +7307,8 @@
     bottom: "auto",
     left: "auto"
   };
-  function roundOffsetsByDPR(_ref) {
+  function roundOffsetsByDPR(_ref, win) {
     var x = _ref.x, y = _ref.y;
-    var win = window;
     var dpr = win.devicePixelRatio || 1;
     return {
       x: round(x * dpr) / dpr || 0,
@@ -7311,7 +7370,7 @@
     var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
       x,
       y
-    }) : {
+    }, getWindow(popper2)) : {
       x,
       y
     };
@@ -7326,14 +7385,6 @@
   function computeStyles(_ref5) {
     var state = _ref5.state, options = _ref5.options;
     var _options$gpuAccelerat = options.gpuAcceleration, gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat, _options$adaptive = options.adaptive, adaptive = _options$adaptive === void 0 ? true : _options$adaptive, _options$roundOffsets = options.roundOffsets, roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
-    if (true) {
-      var transitionProperty = getComputedStyle2(state.elements.popper).transitionProperty || "";
-      if (adaptive && ["transform", "top", "right", "bottom", "left"].some(function(property) {
-        return transitionProperty.indexOf(property) >= 0;
-      })) {
-        console.warn(["Popper: Detected CSS transitions on at least one of the following", 'CSS properties: "transform", "top", "right", "bottom", "left".', "\n\n", 'Disable the "computeStyles" modifier\'s `adaptive` option to allow', "for smooth transitions, or remove these properties from the CSS", "transition declaration on the popper element if only transitioning", "opacity or background-color for example.", "\n\n", "We recommend using the popper element as a wrapper around an inner", "element that can have any CSS property transitioned for animations."].join(" "));
-      }
-    }
     var commonStyles = {
       placement: getBasePlacement(state.placement),
       variation: getVariation(state.placement),
@@ -7693,9 +7744,6 @@
     });
     if (allowedPlacements.length === 0) {
       allowedPlacements = placements2;
-      if (true) {
-        console.error(["Popper: The `allowedAutoPlacements` option did not allow any", "placements. Ensure the `placement` option matches the variation", "of the allowed placements.", 'For example, "auto" cannot be used to allow "bottom-start".', 'Use "auto-start" instead.'].join(" "));
-      }
     }
     var overflows = allowedPlacements.reduce(function(acc, placement2) {
       acc[placement2] = detectOverflow(state, {
@@ -8140,92 +8188,6 @@
     };
   }
 
-  // ../../node_modules/@popperjs/core/lib/utils/format.js
-  function format(str) {
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-    return [].concat(args).reduce(function(p, c) {
-      return p.replace(/%s/, c);
-    }, str);
-  }
-
-  // ../../node_modules/@popperjs/core/lib/utils/validateModifiers.js
-  var INVALID_MODIFIER_ERROR = 'Popper: modifier "%s" provided an invalid %s property, expected %s but got %s';
-  var MISSING_DEPENDENCY_ERROR = 'Popper: modifier "%s" requires "%s", but "%s" modifier is not available';
-  var VALID_PROPERTIES = ["name", "enabled", "phase", "fn", "effect", "requires", "options"];
-  function validateModifiers(modifiers) {
-    modifiers.forEach(function(modifier) {
-      [].concat(Object.keys(modifier), VALID_PROPERTIES).filter(function(value, index, self2) {
-        return self2.indexOf(value) === index;
-      }).forEach(function(key) {
-        switch (key) {
-          case "name":
-            if (typeof modifier.name !== "string") {
-              console.error(format(INVALID_MODIFIER_ERROR, String(modifier.name), '"name"', '"string"', '"' + String(modifier.name) + '"'));
-            }
-            break;
-          case "enabled":
-            if (typeof modifier.enabled !== "boolean") {
-              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"enabled"', '"boolean"', '"' + String(modifier.enabled) + '"'));
-            }
-            break;
-          case "phase":
-            if (modifierPhases.indexOf(modifier.phase) < 0) {
-              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"phase"', "either " + modifierPhases.join(", "), '"' + String(modifier.phase) + '"'));
-            }
-            break;
-          case "fn":
-            if (typeof modifier.fn !== "function") {
-              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"fn"', '"function"', '"' + String(modifier.fn) + '"'));
-            }
-            break;
-          case "effect":
-            if (modifier.effect != null && typeof modifier.effect !== "function") {
-              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"effect"', '"function"', '"' + String(modifier.fn) + '"'));
-            }
-            break;
-          case "requires":
-            if (modifier.requires != null && !Array.isArray(modifier.requires)) {
-              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requires"', '"array"', '"' + String(modifier.requires) + '"'));
-            }
-            break;
-          case "requiresIfExists":
-            if (!Array.isArray(modifier.requiresIfExists)) {
-              console.error(format(INVALID_MODIFIER_ERROR, modifier.name, '"requiresIfExists"', '"array"', '"' + String(modifier.requiresIfExists) + '"'));
-            }
-            break;
-          case "options":
-          case "data":
-            break;
-          default:
-            console.error('PopperJS: an invalid property has been provided to the "' + modifier.name + '" modifier, valid properties are ' + VALID_PROPERTIES.map(function(s) {
-              return '"' + s + '"';
-            }).join(", ") + '; but "' + key + '" was provided.');
-        }
-        modifier.requires && modifier.requires.forEach(function(requirement) {
-          if (modifiers.find(function(mod) {
-            return mod.name === requirement;
-          }) == null) {
-            console.error(format(MISSING_DEPENDENCY_ERROR, String(modifier.name), requirement, requirement));
-          }
-        });
-      });
-    });
-  }
-
-  // ../../node_modules/@popperjs/core/lib/utils/uniqueBy.js
-  function uniqueBy(arr, fn2) {
-    var identifiers = /* @__PURE__ */ new Set();
-    return arr.filter(function(item) {
-      var identifier = fn2(item);
-      if (!identifiers.has(identifier)) {
-        identifiers.add(identifier);
-        return true;
-      }
-    });
-  }
-
   // ../../node_modules/@popperjs/core/lib/utils/mergeByName.js
   function mergeByName(modifiers) {
     var merged = modifiers.reduce(function(merged2, current) {
@@ -8242,8 +8204,6 @@
   }
 
   // ../../node_modules/@popperjs/core/lib/createPopper.js
-  var INVALID_ELEMENT_ERROR = "Popper: Invalid reference or popper argument provided. They must be either a DOM element or virtual element.";
-  var INFINITE_LOOP_ERROR = "Popper: An infinite loop in the modifiers cycle has been detected! The cycle has been interrupted to prevent a browser crash.";
   var DEFAULT_OPTIONS = {
     placement: "bottom",
     modifiers: [],
@@ -8294,28 +8254,6 @@
           state.orderedModifiers = orderedModifiers.filter(function(m) {
             return m.enabled;
           });
-          if (true) {
-            var modifiers = uniqueBy([].concat(orderedModifiers, state.options.modifiers), function(_ref) {
-              var name = _ref.name;
-              return name;
-            });
-            validateModifiers(modifiers);
-            if (getBasePlacement(state.options.placement) === auto) {
-              var flipModifier = state.orderedModifiers.find(function(_ref2) {
-                var name = _ref2.name;
-                return name === "flip";
-              });
-              if (!flipModifier) {
-                console.error(['Popper: "auto" placements require the "flip" modifier be', "present and enabled to work."].join(" "));
-              }
-            }
-            var _getComputedStyle = getComputedStyle2(popper2), marginTop = _getComputedStyle.marginTop, marginRight = _getComputedStyle.marginRight, marginBottom = _getComputedStyle.marginBottom, marginLeft = _getComputedStyle.marginLeft;
-            if ([marginTop, marginRight, marginBottom, marginLeft].some(function(margin) {
-              return parseFloat(margin);
-            })) {
-              console.warn(['Popper: CSS "margin" styles cannot be used to apply padding', "between the popper and its reference element or boundary.", "To replicate margin, use the `offset` modifier, as well as", "the `padding` option in the `preventOverflow` and `flip`", "modifiers."].join(" "));
-            }
-          }
           runModifierEffects();
           return instance.update();
         },
@@ -8330,9 +8268,6 @@
           }
           var _state$elements = state.elements, reference3 = _state$elements.reference, popper3 = _state$elements.popper;
           if (!areValidElements(reference3, popper3)) {
-            if (true) {
-              console.error(INVALID_ELEMENT_ERROR);
-            }
             return;
           }
           state.rects = {
@@ -8344,15 +8279,7 @@
           state.orderedModifiers.forEach(function(modifier) {
             return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
           });
-          var __debug_loops__ = 0;
           for (var index = 0; index < state.orderedModifiers.length; index++) {
-            if (true) {
-              __debug_loops__ += 1;
-              if (__debug_loops__ > 100) {
-                console.error(INFINITE_LOOP_ERROR);
-                break;
-              }
-            }
             if (state.reset === true) {
               state.reset = false;
               index = -1;
@@ -8383,9 +8310,6 @@
         }
       };
       if (!areValidElements(reference2, popper2)) {
-        if (true) {
-          console.error(INVALID_ELEMENT_ERROR);
-        }
         return instance;
       }
       instance.setOptions(options).then(function(state2) {
@@ -8394,8 +8318,8 @@
         }
       });
       function runModifierEffects() {
-        state.orderedModifiers.forEach(function(_ref3) {
-          var name = _ref3.name, _ref3$options = _ref3.options, options2 = _ref3$options === void 0 ? {} : _ref3$options, effect4 = _ref3.effect;
+        state.orderedModifiers.forEach(function(_ref) {
+          var name = _ref.name, _ref$options = _ref.options, options2 = _ref$options === void 0 ? {} : _ref$options, effect4 = _ref.effect;
           if (typeof effect4 === "function") {
             var cleanupFn = effect4({
               state,
@@ -12081,7 +12005,7 @@
   };
 
   // rails:/Users/eclecticcoding/development/projects/rails_modern_shop/app/javascript/controllers/*_controller.js
-  var modules = [{ name: "hello", module: hello_controller_exports, filename: "./hello_controller.js" }, { name: "search-form", module: search_form_controller_exports, filename: "./search_form_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "./toast_controller.js" }];
+  var modules = [{ name: "hello", module: hello_controller_exports, filename: "hello_controller.js" }, { name: "search-form", module: search_form_controller_exports, filename: "search_form_controller.js" }, { name: "toast", module: toast_controller_exports, filename: "toast_controller.js" }];
   var controller_default = modules;
 
   // controllers/index.js

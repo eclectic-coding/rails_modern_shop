@@ -5,10 +5,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
-gem "rails", "~> 7.0.4.3"
+gem "rails", "~> 7.0.5"
 gem "sprockets-rails"
 gem "pg", "~> 1.1"
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.3.0"
 gem "jsbundling-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
@@ -24,7 +24,7 @@ gem "name_of_person"
 gem "pundit"
 gem "inline_svg", "~> 1.8"
 gem "faraday", "~> 2.6"
-gem "pagy", "~> 6.0", ">= 6.0.3"
+gem "pagy", "~> 6.0.4"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
