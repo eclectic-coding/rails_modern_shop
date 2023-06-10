@@ -24,7 +24,7 @@ gem "name_of_person"
 gem "pundit"
 gem "inline_svg", "~> 1.8"
 gem "faraday", "~> 2.6"
-gem "pagy", "~> 6.0", ">= 6.0.3"
+gem "pagy", "~> 6.0"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
