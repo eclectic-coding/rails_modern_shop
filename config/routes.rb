@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     get "account/show"
-    get "dashboard", to: 'dashboard#show', as: "dashboard"
+    get "dashboard", to: "dashboard#show", as: "dashboard"
   end
 
   root to: "static#home"

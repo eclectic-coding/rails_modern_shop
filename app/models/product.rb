@@ -23,7 +23,6 @@ class Product < ApplicationRecord
       .by_category(filters["category_id"])
       .search_title(filters["search"])
       .order("#{filters["column"]} #{filters["direction"]}")
-
   end
 
   def create_stock_number
