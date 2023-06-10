@@ -201,7 +201,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (5.0.1)
-    puma (5.6.5)
+    puma (6.3.0)
       nio4r (~> 2.0)
     pundit (2.3.0)
       activesupport (>= 3.0.0)
@@ -381,7 +381,7 @@ DEPENDENCIES
   name_of_person
   pagy (~> 6.0, >= 6.0.3)
   pg (~> 1.1)
-  puma (~> 5.0)
+  puma (~> 6.3)
   pundit
   rails (~> 7.0.4.3)
   redis (~> 4.0)
