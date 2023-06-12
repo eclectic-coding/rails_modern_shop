@@ -33,6 +33,7 @@ group :development, :test do
   gem "rspec-rails", "~> 6.0.0"
   gem "factory_bot_rails", "~> 6.2"
   gem "faker", "~> 2.18"
+  eval_gemfile "gemfiles/rubocop.gemfile"
 end
 
 group :development do
@@ -40,8 +41,6 @@ group :development do
   gem "fuubar", "~> 2.5", ">= 2.5.1"
   gem "guard", "~> 2.17"
   gem "guard-rspec", "~> 4.7", ">= 4.7.3"
-
-  eval_gemfile "gemfiles/rubocop.gemfile"
 end
 
 group :test do
