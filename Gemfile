@@ -32,7 +32,7 @@ group :development, :test do
   gem "webdrivers"
   gem "rspec-rails", "~> 6.0.0"
   gem "factory_bot_rails", "~> 6.2"
-  gem "faker", "~> 2.18"
+  gem "faker", "~> 3.2"
   eval_gemfile "gemfiles/rubocop.gemfile"
 end
 
