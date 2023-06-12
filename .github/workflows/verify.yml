@@ -26,3 +26,45 @@ jobs:
 
       - name: Run linters
         run: bundle exec rubocop --parallel
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+        postgres:
+            image: postgres:13
+            env:
+              POSTGRES_USER: postgres
+              POSTGRES_PASSWORD: postgres
+              POSTGRES_DB: postgres
+            ports: ["5432":"5432"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Setup database
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+        run: |
+          bundle exec rails db:setup
+
+      - name: Run tests
+        run: |
+          bundle exec rspec
