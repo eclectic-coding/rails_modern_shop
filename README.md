@@ -1,24 +1,7 @@
-# README
+# Modern Rails Shop
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Coverage Status](https://coveralls.io/repos/github/eclectic-coding/rails_modern_shop/badge.svg?branch=main)](https://coveralls.io/github/eclectic-coding/rails_modern_shop?branch=main)
+![GitHub](https://img.shields.io/github/license/eclectic-coding/rails_modern_shop)
+![GitHub last commit](https://img.shields.io/github/last-commit/eclectic-coding/rails_modern_shop)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Notes Coming  soon ...
