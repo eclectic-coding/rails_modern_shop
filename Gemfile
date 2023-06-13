@@ -15,7 +15,7 @@ gem "stimulus-rails"
 gem "cssbundling-rails"
 gem "image_processing"
 gem "jbuilder"
-gem "redis", "~> 4.0"
+gem "redis", "~> 5.0"
 gem "bootsnap", require: false
 
 # ===== App gems =====
