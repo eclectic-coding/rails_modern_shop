@@ -44,7 +44,7 @@ group :development do
 end
 
 group :test do
-  gem "simplecov", "~> 0.21.2", require: false
+  gem "simplecov", "~> 0.22.0", require: false
   gem "webmock"
 end
 
