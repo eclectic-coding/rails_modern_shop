@@ -48,8 +48,8 @@ RSpec/ReceiveCounts:
 Capybara/CurrentPathExpectation:
   Enabled: true
 
-FactoryBot/AttributeDefinedStatically:
+RSpec/FactoryBot/AttributeDefinedStatically:
   Enabled: true
 
-FactoryBot/CreateList:
+RSpec/FactoryBot/CreateList:
   Enabled: true

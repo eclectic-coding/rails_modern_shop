@@ -10,17 +10,6 @@ Rails/ActionFilter:
   Include:
     - app/controllers/**/*.rb
 
-Rails/ActionOrder:
-  Enabled: true
-  ExpectedOrder:
-    - index
-    - show
-    - new
-    - create
-    - edit
-    - update
-    - destroy
-
 Rails/ActiveRecordAliases:
   Enabled: true
 

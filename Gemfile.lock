@@ -395,14 +395,14 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 6.3.0)
   pundit
-  rails (~> 7.0.4)
+  rails (~> 7.0.5)
   redis (~> 4.0)
   rspec-rails (~> 6.0.0)
   rubocop-rails!
   rubocop-rspec!
   simplecov (~> 0.21.2)
   sprockets-rails
-  standard (~> 1.0)!
+  standard (~> 1.28)!
   stimulus-rails
   turbo-rails
   web-console
