@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
-gem "rails", "~> 7.0.5"
+gem "rails", "~> 7.0.4"
 gem "sprockets-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 6.3.0"
@@ -45,6 +45,7 @@ end
 
 group :test do
   gem "simplecov", "~> 0.21.2", require: false
+  gem "webmock"
 end
 
 # gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

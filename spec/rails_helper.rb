@@ -14,6 +14,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "capybara/rails"
 require "fuubar"
+require 'webmock/rspec'
 
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
 
@@ -25,6 +26,10 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  config.before(:all, type: :request) do
+    WebMock.allow_net_connect!
+  end
+
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Devise::Test::IntegrationHelpers, type: :request # to sign_in user by Devise
