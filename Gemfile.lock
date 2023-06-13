@@ -108,7 +108,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (2.23.0)
+    faker (3.2.0)
       i18n (>= 1.8.11, < 2)
     faraday (2.7.6)
       faraday-net_http (>= 2.0, < 3.1)
@@ -311,7 +311,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shellany (0.0.1)
-    simplecov (0.21.2)
+    simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
@@ -381,7 +381,7 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails (~> 6.2)
-  faker (~> 2.18)
+  faker (~> 3.2.0)
   faraday (~> 2.6)
   fuubar (~> 2.5, >= 2.5.1)
   guard (~> 2.17)
@@ -400,7 +400,7 @@ DEPENDENCIES
   rspec-rails (~> 6.0.0)
   rubocop-rails!
   rubocop-rspec!
-  simplecov (~> 0.21.2)
+  simplecov (~> 0.22.0)
   sprockets-rails
   standard (~> 1.28)!
   stimulus-rails
