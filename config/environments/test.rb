@@ -7,7 +7,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # config.action_mailer.default_url_options = { host: 'example.com' }
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = {host: "localhost", port: 3000}
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Turn false under Spring and add config.action_view.cache_template_loading = true.

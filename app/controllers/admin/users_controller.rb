@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
   def list
     @pagy, @users = pagy(filter!(User), items: 10)
 
-    render(partial: "users", locals: { users: @users, pagy: @pagy })
+    render(partial: "users", locals: {users: @users, pagy: @pagy})
   end
 
   def show

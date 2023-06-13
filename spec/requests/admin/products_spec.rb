@@ -35,7 +35,7 @@ RSpec.describe "Admin::Products", type: :request do
       it "creates a new product" do
         product = attributes_for(:product)
         expect do
-          post admin_products_path, params: { product: product }
+          post admin_products_path, params: {product: product}
         end.to change(Product, :count).by(1)
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe "Admin::Products", type: :request do
         product = attributes_for(:product)
         product[:title] = nil
         expect do
-          post admin_products_path, params: { product: product }
+          post admin_products_path, params: {product: product}
         end.to change(Product, :count).by(0)
       end
     end
@@ -64,12 +64,12 @@ RSpec.describe "Admin::Products", type: :request do
       let("product") { create(:product) }
 
       it "updates the requested product" do
-        patch admin_product_path(product), params: { product: { price: 100 } }
+        patch admin_product_path(product), params: {product: {price: 100}}
         expect(product.reload.price).to eq(100)
       end
 
       it "redirects to the product" do
-        patch admin_product_path(product), params: { product: { price: 100 } }
+        patch admin_product_path(product), params: {product: {price: 100}}
         expect(response).to redirect_to(admin_product_path(product))
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe "Admin::Products", type: :request do
       let("product") { create(:product) }
 
       it "attempts to update the requested product with invalid parameters" do
-        patch admin_product_path(product), params: { product: { title: nil } }
+        patch admin_product_path(product), params: {product: {title: nil}}
         expect(response.status).to eq(422)
       end
     end
