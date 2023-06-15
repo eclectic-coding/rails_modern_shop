@@ -48,7 +48,7 @@
               </td>
               <td><%= product.quantity %></td>
               <td><%= number_to_currency product.price %></td>
-              <td><%= product_status(product) %></td>
+              <td><%= render(Admin::ProductStatusComponent.new(product: product)) %></td>
               <td>
                 <div class="d-flex justify-content-end">
                   <%= link_to t("archive"), archive_admin_product_path(product), class: "btn btn-sm btn-link" %>
