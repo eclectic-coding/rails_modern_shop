@@ -23,15 +23,11 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup Node.js and install packages
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
           cache: "yarn"
-
-      - name: Install packages
-        run: |
-          yarn install --pure-lockfile
 
       - name: Run linters
         run: |
@@ -48,12 +44,12 @@ jobs:
     services:
       postgres:
         image: postgres:14-alpine
-        ports:
-          - "5432:5432"
         env:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+        ports:
+          - "5432:5432"
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
@@ -66,7 +62,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup Node.js and install packages
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
