@@ -61,7 +61,12 @@
       </tbody>
     </table>
 
-    <%= render(Admin::PaginationComponent.new(pagy: pagy)) %>
+    <%= tag.div class: "row" do %>
+      <div class="col-12 d-flex justify-content-between align-items-center px-3">
+        <%== pagy_info(pagy) %>
+        <%== pagy_bootstrap_nav(pagy) %>
+      </div>
+    <% end unless pagy.nil? %>
 
   <% end %>
 </div>
