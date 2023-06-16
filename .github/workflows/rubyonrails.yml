@@ -52,8 +52,8 @@ jobs:
           - "5432:5432"
         env:
           POSTGRES_DB: rails_test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
@@ -73,12 +73,7 @@ jobs:
           cache: "yarn"
 
       - name: Setup test database
-        env:
-          RAILS_ENV: test
-          PGHOST: 127.0.0.1
-          PGUSER: postgres
-        run: |
-          bin/rails db:schema:load
+        run: bin/rails db:schema:load
 
       - name: Run tests
         run: bin/rspec
