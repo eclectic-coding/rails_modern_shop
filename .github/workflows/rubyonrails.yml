@@ -78,7 +78,7 @@ jobs:
           PGHOST: 127.0.0.1
           PGUSER: postgres
         run: |
-          bin/rails db:setup
+          bin/rails db:schema:load
 
       - name: Run tests
         run: bin/rspec
