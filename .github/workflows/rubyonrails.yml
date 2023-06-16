@@ -74,7 +74,7 @@ jobs:
 
       - name: Setup test database
         env:
-          RAILS_ENV: rails_modern_shop_test
+          RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
         run: |
