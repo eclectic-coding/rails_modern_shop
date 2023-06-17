@@ -15,7 +15,7 @@ RSpec.describe Admin::ProductStatusComponent, type: :component do
   end
 
   it "renders for admin active product" do
-    product = create(:product, product_available: true)
+    product = create(:product, product_available: true, quantity: 1)
     render_inline(described_class.new(product: product))
 
     expect(rendered_content).to include("Active")
