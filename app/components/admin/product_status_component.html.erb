@@ -1,7 +1,7 @@
-<% if !product_available? %>
-  <span class="badge bg-info">Archived</span>
-<% elsif product_quantity.positive? %>
-  <span class="badge bg-success">Active</span>
-<% elsif product_quantity.zero? %>
+<% if product_quantity.zero? %>
   <span class="badge bg-danger">Out of Stock</span>
+<% elsif !product_available? %>
+  <span class="badge bg-info">Archived</span>
+<% elsif product_quantity.positive? || product_available? %>
+  <span class="badge bg-success">Active</span>
 <% end %>

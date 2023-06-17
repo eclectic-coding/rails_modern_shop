@@ -53,7 +53,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def archive
-    @product.toggle(:product_available)
+    @product.toggle(:product_available).save
     redirect_to admin_products_path, notice: "Product was successfully archived."
   end
 
