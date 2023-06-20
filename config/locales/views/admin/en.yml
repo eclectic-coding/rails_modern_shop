@@ -51,9 +51,5 @@ en:
   active: Active
   archived: Archived
   unarchived_btn: Archived
-  devise:
-    registrations:
-      new:
-        characters: characters minimum
-  title_label: ""
+  unarchive: Unarchive
 

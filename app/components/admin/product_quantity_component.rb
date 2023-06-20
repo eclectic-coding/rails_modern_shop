@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Admin::ProductQuantityComponent < ViewComponent::Base
-
   def initialize(product:)
     @product = product
   end

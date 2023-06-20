@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end">
   <%= link_to archive_admin_product_path(product), class: "btn btn-sm btn-link" do %>
-    <%= product_available? ? t('.archive') : 'Unarchive' %>
+    <%= product_available? ? t('.archive') : t('.unarchive') %>
   <% end %>
 </div>
