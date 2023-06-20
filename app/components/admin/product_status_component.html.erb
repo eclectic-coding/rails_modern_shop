@@ -1,5 +1,5 @@
 <% if product_quantity.zero? %>
-  <span class="badge bg-danger"><%= t('.out_of_stock') %></span>
+  <span class="badge bg-danger"><%= t('.no_stock') %></span>
 <% elsif !product_available? %>
   <span class="badge bg-info"><%= t('.archived') %></span>
 <% elsif product_quantity.positive? || product_available? %>

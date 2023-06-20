@@ -47,7 +47,10 @@ en:
         price_label: Price
         status_label: Status
         no_products_found: No products found
-  out_of_stock: Out of Stock
+    product_status_component:
+      no_stock: Out of Stock
+      active: Active
+      archived: Archived
   active: Active
   archived: Archived
   unarchived_btn: Archived
