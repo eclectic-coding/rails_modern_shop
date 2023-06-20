@@ -1,0 +1,7 @@
+<% if !product_available? %>
+  <span class="badge bg-info"><%= t(".archived") %></span>
+<% elsif product.quantity.zero? %>
+  <span class="badge bg-danger"><%= t(".out_of_stock") %></span>
+<% elsif product.quantity.positive? %>
+  <div class="col-1 border rounded text-center py-1 my-2"><%= product.quantity.to_s %></div>
+<% end %>

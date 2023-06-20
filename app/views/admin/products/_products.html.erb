@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <%= turbo_frame_tag "products_table" do %>
+  <%= turbo_frame_tag "products_table", target: "_top" do %>
     <table class="table">
       <thead>
         <tr>
@@ -35,11 +35,11 @@
           </tr>
         <% else %>
           <% products.each do |product| %>
-            <tr class="align-middle">
+            <tr class="align-middle" id="<%= dom_id(product) %>">
               <td class="col-4">
-              <span class="d-inline-block text-truncate" style="max-width: 300px">
-                <%= link_to product.title, admin_product_path(product) %>
-              </span>
+                <span class="d-inline-block text-truncate" style="max-width: 300px">
+                  <%= link_to product.title, admin_product_path(product) %>
+                </span>
               </td>
               <td>
               <span class="d-inline-block text-truncate" style="max-width: 130px">
@@ -48,12 +48,8 @@
               </td>
               <td><%= product.quantity %></td>
               <td><%= number_to_currency product.price %></td>
-              <td><%= product_status(product) %></td>
-              <td>
-                <div class="d-flex justify-content-end">
-                  <%= link_to t("archive"), archive_admin_product_path(product), class: "btn btn-sm btn-link" %>
-                </div>
-              </td>
+              <td><%= render(Admin::ProductStatusComponent.new(product: product)) %></td>
+              <td><%= render(Admin::ProductArchiveLinkComponent.new(product: product)) %></td>
             </tr>
 
           <% end %>

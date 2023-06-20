@@ -1,10 +1,20 @@
 #!/usr/bin/env node
 
+// Esbuild is configured with 3 modes:
+//
+// `yarn build` - Build JavaScript and exit
+// `yarn build --watch` - Rebuild JavaScript on change
+// `yarn build --reload` - Reloads page when views, JavaScript, or stylesheets change
+//
+// Minify is enabled when "RAILS_ENV=production"
+// Sourcemaps are enabled in non-production environments
+
 import * as esbuild from "esbuild"
 import path from "path"
+import rails from "esbuild-rails"
 import chokidar from "chokidar"
 import http from "http"
-import rails from "esbuild-rails"
+import { setTimeout } from "timers/promises"
 
 const clients = []
 const entryPoints = [
@@ -19,10 +29,10 @@ const config = {
     absWorkingDir: path.join(process.cwd(), "app/javascript"),
     bundle: true,
     entryPoints: entryPoints,
-    minify: process.env.RAILS_ENV === "production",
+    minify: process.env.RAILS_ENV == "production",
     outdir: path.join(process.cwd(), "app/assets/builds"),
     plugins: [rails()],
-    sourcemap: process.env.RAILS_ENV !== "production"
+    sourcemap: process.env.RAILS_ENV != "production"
 }
 
 async function buildAndReload() {

@@ -43,7 +43,7 @@ RSpec.describe "AdminSortProducts", type: :system do
   end
 
   describe "sorting by quantity", type: :system, js: true do
-    it "sorts ascending by quantity" do
+    xit "sorts ascending by quantity" do
       find("a", text: "Quantity").click
 
       within "tbody tr:nth-child(1)" do

@@ -25,6 +25,7 @@ gem "pundit"
 gem "inline_svg", "~> 1.8"
 gem "faraday", "~> 2.6"
 gem "pagy", "~> 6.0.4"
+gem "view_component", "~> 3.2.0"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
