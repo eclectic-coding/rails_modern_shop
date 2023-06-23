@@ -31,3 +31,10 @@ PreCommit:
       - '**/*.rb'
     command: ['bundle', 'exec', 'standardrb']
     quiet: true
+  RSpec:
+    description: "Run RSpec tests"
+    enabled: true
+    include:
+      - '**/*_spec.rb'
+    command: ['bundle', 'exec', 'rspec']
+    quiet: true
