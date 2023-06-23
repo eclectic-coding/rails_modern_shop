@@ -27,10 +27,7 @@ PreCommit:
   Rubocop:
     description: "Check for Ruby code style violations"
     enabled: true
-    include:
-      - '**/*.rb'
     command: ['bundle', 'exec', 'standardrb']
-    quiet: true
     on_fail: fail
   CustomScript:
     description: 'Running RSpec unit tests'
