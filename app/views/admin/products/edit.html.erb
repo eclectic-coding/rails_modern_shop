@@ -26,8 +26,8 @@
               <div class="col-auto">
                 <%= f.label :price, class: "form-label" %>
                 <%= f.number_field :price, step: 0.01,
-                                   value: number_with_precision(f.object.price, precision: 2),
-                                   class: "form-control" %>
+                      value: number_with_precision(f.object.price, precision: 2),
+                      class: "form-control" %>
               </div>
 
               <div class="col-auto">
@@ -48,12 +48,12 @@
 
             <div class="mb-3">
               <%= f.label :category_id, class: "form-label" %>
-              <%= f.collection_select :category_id, Category.all, :id, :human_name, { include_blank: t(".select_category") }, { class: "form-select" } %>
+              <%= f.collection_select :category_id, Category.all, :id, :human_name, {include_blank: t(".select_category")}, {class: "form-select"} %>
             </div>
 
             <div class="mb-3">
               <%= f.label :product_available, class: "form-label" %>
-              <%= f.select(:product_available, options_for_select([['Active', true], ['Inactive', false]], {class: "form-select", selected: @product.product_available}), {}, {class: "form-select"}) %>
+              <%= f.select(:product_available, options_for_select([["Active", true], ["Inactive", false]], {class: "form-select", selected: @product.product_available}), {}, {class: "form-select"}) %>
             </div>
 
             <div class="my-4">

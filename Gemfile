@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.1.4"
 
 gem "rails", "~> 7.0.5"
 gem "sprockets-rails"
@@ -27,6 +27,7 @@ gem "faraday", "~> 2.6"
 gem "pagy", "~> 6.0.4"
 gem "view_component", "~> 3.2.0"
 gem "honeybadger", "~> 5.2", ">= 5.2.1"
+gem "erb_lint", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]

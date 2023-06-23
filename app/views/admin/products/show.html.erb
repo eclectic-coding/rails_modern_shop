@@ -1,5 +1,5 @@
 <div class="container container-md-fluid">
-  <%= render(PageTitleComponent.new(title: t('.inventory_show_title') )) %>
+  <%= render(PageTitleComponent.new(title: t(".inventory_show_title"))) %>
 
   <div class="card">
     <div class="card-header">
@@ -8,7 +8,7 @@
         <div>
           <%= link_to t("edit"), edit_admin_product_path(@product), class: "btn btn-primary" %>
           <%= link_to archive_admin_product_path(@product),
-                      class: "btn btn-outline-danger" do %>
+                class: "btn btn-outline-danger" do %>
             <%= @product.product_available? ? t("archive") : t(".unarchive_btn") %>
           <% end %>
         </div>

@@ -4,16 +4,16 @@
       <thead>
         <tr>
           <th scope="col" class="position-relative">
-            <%= sort_link(column: "first_name", label: "Name", resource: 'User', link: 'admin_users') %>
-            <%= sort_indicator if session.dig('user_filters', 'column') == "first_name" %>
+            <%= sort_link(column: "first_name", label: "Name", resource: "User", link: "admin_users") %>
+            <%= sort_indicator if session.dig("user_filters", "column") == "first_name" %>
           </th>
           <th scope="col" class="position-relative">
-            <%= sort_link(column: "email", label: "Email", resource: 'User', link: 'admin_users') %>
-            <%= sort_indicator if session.dig('user_filters', 'column') == "email" %>
+            <%= sort_link(column: "email", label: "Email", resource: "User", link: "admin_users") %>
+            <%= sort_indicator if session.dig("user_filters", "column") == "email" %>
           </th>
           <th scope="col" class="position-relative">
-            <%= sort_link(column: "role", label: "Role", resource: 'User', link: 'admin_users') %>
-            <%= sort_indicator if session.dig('user_filters', 'column') == "role" %>
+            <%= sort_link(column: "role", label: "Role", resource: "User", link: "admin_users") %>
+            <%= sort_indicator if session.dig("user_filters", "column") == "role" %>
           </th>
           <th scope="col"><%= t(".no_orders") %></th>
           <th scope="col"></th>
@@ -28,9 +28,9 @@
             <td>-</td>
             <td>
               <div class="d-flex justify-content-end">
-                <%= button_to admin_user_path(user), method: :delete, form: { data: { turbo_confirm: t("confirm") } },
-                              class: "btn btn-sm border-0 mt-1" do %>
-                  <%= inline_svg_tag 'trash.svg', class: "user-dashboard__icon-sm text-danger me-1" %>
+                <%= button_to admin_user_path(user), method: :delete, form: {data: {turbo_confirm: t("confirm")}},
+                      class: "btn btn-sm border-0 mt-1" do %>
+                  <%= inline_svg_tag "trash.svg", class: "user-dashboard__icon-sm text-danger me-1" %>
                 <% end %>
               </div>
             </td>

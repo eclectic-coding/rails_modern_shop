@@ -1,35 +1,33 @@
 <div class="container py-3 px-4">
   <div class="mx-auto mb-4">
     <h1 class="text-center text-uppercase mt-4 mb-2 mb-lg-0 fw-bold h3">
-      <%= t('show.my_account') %>
+      <%= t("show.my_account") %>
     </h1>
     <div class="d-flex justify-content-center align-items-center mt-2">
       <div class="me-2">
-        <%= link_to t('show.edit_profile'), "#", class: "shop__links", data: {'bs-toggle': "modal", 'bs-target': "#exampleModal" } %>
+        <%= link_to t("show.edit_profile"), "#", class: "shop__links", data: {"bs-toggle": "modal", "bs-target": "#exampleModal"} %>
       </div>
       <div class="ms-2">
-        <%= button_to t('logout_btn'), destroy_user_session_path, method: :delete, class: "btn btn-link shop__links" %>
+        <%= button_to t("logout_btn"), destroy_user_session_path, method: :delete, class: "btn btn-link shop__links" %>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="container">
   <div class="row">
     <div class="col-md-6">
       <div class="card mb-4 p-3 bg-white">
-        <%= t 'show.orders' %>
+        <%= t "show.orders" %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card mb-4 p-3 bg-white">
-        <%= t 'show.addresses' %>
+        <%= t "show.addresses" %>
       </div>
     </div>
   </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

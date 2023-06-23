@@ -4,24 +4,24 @@
       <thead>
         <tr>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig('product_filters', 'column') == "title" %>
-            <%= sort_link(column: "title", label: t('.title_label'), resource: 'Product', link: 'admin_products') %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "title" %>
+            <%= sort_link(column: "title", label: t(".title_label"), resource: "Product", link: "admin_products") %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig('product_filters', 'column') == "categories.name" %>
-            <%= sort_link(column: "categories.name", label: t('.category_label'), resource: 'Product', link: 'admin_products') %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "categories.name" %>
+            <%= sort_link(column: "categories.name", label: t(".category_label"), resource: "Product", link: "admin_products") %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig('product_filters', 'column') == "quantity" %>
-            <%= sort_link(column: "quantity", label: t('.quantity'), resource: 'Product', link: 'admin_products') %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "quantity" %>
+            <%= sort_link(column: "quantity", label: t(".quantity"), resource: "Product", link: "admin_products") %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig('product_filters', 'column') == "price" %>
-            <%= sort_link(column: "price", label: t('.price_label'), resource: 'Product', link: 'admin_products') %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "price" %>
+            <%= sort_link(column: "price", label: t(".price_label"), resource: "Product", link: "admin_products") %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig('product_filters', 'column') == "product_available" %>
-            <%= sort_link(column: "product_available", label: t('.status_label'), resource: 'Product', link: 'admin_products') %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "product_available" %>
+            <%= sort_link(column: "product_available", label: t(".status_label"), resource: "Product", link: "admin_products") %>
           </th>
           <th scope="col"></th>
         </tr>

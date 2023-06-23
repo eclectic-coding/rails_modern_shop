@@ -16,7 +16,7 @@
               <div class="col-auto">
                 <%= f.label :price, class: "form-label" %>
                 <%= f.number_field :price, min: 0.00, step: 0.01, value: number_with_precision(0, precision: 2),
-                                   class: "form-control" %>
+                      class: "form-control" %>
               </div>
 
               <div class="col-auto">
@@ -37,12 +37,12 @@
 
             <div class="mb-3">
               <%= f.label :category_id, class: "form-label" %>
-              <%= f.collection_select :category_id, Category.all, :id, :human_name, { include_blank: t(".select_category") }, { class: "form-select" } %>
+              <%= f.collection_select :category_id, Category.all, :id, :human_name, {include_blank: t(".select_category")}, {class: "form-select"} %>
             </div>
 
             <div class="mb-3">
               <%= f.label :product_available, class: "form-label" %>
-              <%= f.select(:product_available, options_for_select([['Active', true], ['Inactive', false]]), {}, {class: "form-select"}) %>
+              <%= f.select(:product_available, options_for_select([["Active", true], ["Inactive", false]]), {}, {class: "form-select"}) %>
             </div>
 
             <div class="mt-3">
@@ -52,7 +52,7 @@
 
             <div class="my-4">
               <%= f.submit t("create"), class: "btn btn-primary me-3" %>
-              <%= link_to t("cancel"), admin_products_path,class: "btn btn-outline-primary" %>
+              <%= link_to t("cancel"), admin_products_path, class: "btn btn-outline-primary" %>
             </div>
           <% end %>
         </div>

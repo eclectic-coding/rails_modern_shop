@@ -21,7 +21,7 @@
             <%= f.label :password, class: "form-label" %>
             <% if @minimum_password_length %>
               <em>(<%= @minimum_password_length %> <%= t(".characters") %>)</em>
-            <% end %><br/>
+            <% end %><br />
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
           </div>
 
@@ -31,7 +31,7 @@
           </div>
 
           <div class="mb-3">
-            <%= f.button t("create"), class: "btn btn-secondary", data: { turbo: false } %>
+            <%= f.button t("create"), class: "btn btn-secondary", data: {turbo: false} %>
           </div>
 
         <% end %>

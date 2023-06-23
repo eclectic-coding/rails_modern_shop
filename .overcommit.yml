@@ -29,7 +29,13 @@ PreCommit:
     enabled: true
     command: ['bundle', 'exec', 'standardrb']
     on_fail: fail
-  CustomScript:
+  Erblint:
+    description: "Check for ERB code style violations"
+    enabled: true
+    command: ['bundle', 'exec', 'erblint', '--lint-all']
+    on_fail: fail
+PrePush:
+  RSpec:
     description: 'Running RSpec unit tests'
     enabled: true
     on_fail: fail
