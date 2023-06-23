@@ -43,6 +43,7 @@ group :development do
   gem "guard", "~> 2.17"
   gem "guard-rspec", "~> 4.7", ">= 4.7.3"
   gem "bundle-audit"
+  gem "overcommit"
 end
 
 group :test do
