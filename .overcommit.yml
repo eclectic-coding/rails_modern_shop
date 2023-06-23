@@ -37,4 +37,3 @@ PreCommit:
     include:
       - '**/*_spec.rb'
     command: ['bundle', 'exec', 'rspec']
-    quiet: true
