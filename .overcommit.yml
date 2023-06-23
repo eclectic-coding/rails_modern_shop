@@ -31,6 +31,7 @@ PreCommit:
       - '**/*.rb'
     command: ['bundle', 'exec', 'standardrb']
     quiet: true
+    on_fail: fail
   CustomScript:
     description: 'Running RSpec unit tests'
     enabled: true
