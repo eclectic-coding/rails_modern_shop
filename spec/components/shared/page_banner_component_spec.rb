@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe PageBannerComponent, type: :component do
+RSpec.describe Shared::PageBannerComponent, type: :component do
   it "renders page banner" do
     render_inline(described_class.new(title: "Page Title"))
 
