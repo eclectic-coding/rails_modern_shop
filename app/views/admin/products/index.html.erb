@@ -1,5 +1,5 @@
 <div class="container container-md-fluid">
-  <%= render(PageTitleComponent.new(title: t(".inventory_title"))) do %>
+  <%= render(Shared::PageTitleComponent.new(title: t(".inventory_title"))) do %>
     <%= link_to t("admin.products.new.create_product"), new_admin_product_path, class: "btn btn-primary" %>
   <% end %>
 

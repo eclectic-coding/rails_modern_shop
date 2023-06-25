@@ -11,6 +11,7 @@
   </head>
   <body class="profile bg-light">
 
+    <%= render(Shared::PageBannerComponent.new(title: t("banner").to_s)) %>
     <div class="admin container-fluid">
       <div class="row flex-nowrap">
         <%= render "shared/navbar/admin_navbar" %>

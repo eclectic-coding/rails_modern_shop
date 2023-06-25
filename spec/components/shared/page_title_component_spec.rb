@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe PageTitleComponent, type: :component do
+RSpec.describe Shared::PageTitleComponent, type: :component do
   before do
     login_as(create(:user, :admin))
   end
