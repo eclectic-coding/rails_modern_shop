@@ -24,11 +24,11 @@ PreCommit:
   BundleAudit:
     description: "Check bundle for vulnerabilities"
     enabled: true
-  Rubocop:
-    description: "Check for Ruby code style violations"
-    enabled: true
-    command: ['bundle', 'exec', 'standardrb']
-    on_fail: fail
+#  Rubocop:
+#    description: "Check for Ruby code style violations"
+#    enabled: true
+#    command: ['bundle', 'exec', 'standardrb']
+#    on_fail: fail
   Erblint:
     description: "Check for ERB code style violations"
     enabled: true

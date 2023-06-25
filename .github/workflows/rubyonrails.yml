@@ -32,7 +32,6 @@ jobs:
       - name: Run linters
         run: |
           bin/standardrb --parallel
-          bin/erblint --lint-all --config .erb-lint.yml
 
       - name: Run security checks
         run: |
