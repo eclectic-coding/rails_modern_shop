@@ -12,6 +12,7 @@
 
   <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
+      <%= render(Shared::PageBannerComponent.new(title: t("banner").to_s)) %>
       <%= render "shared/navbar/navbar" %>
       <%= render "shared/notices" %>
 
