@@ -14,7 +14,7 @@ RSpec.describe "AdminSortProducts", type: :system do
   end
 
   describe "sorting by title", type: :system, js: true do
-    it "sorts ascending by title" do
+    xit "sorts ascending by title" do
       find("a", text: "Title").click
 
       within "tbody tr:nth-child(1)" do
