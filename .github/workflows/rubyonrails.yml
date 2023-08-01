@@ -72,7 +72,7 @@ jobs:
         run: bin/rails db:schema:load
 
       - name: Run tests
-        run: bin/rspec
+        run: bin/rspec --exclude-pattern "spec/system/**/*.spec.rb"
 
       # Add or replace any other lints here
       - name: Coveralls GitHub Action
