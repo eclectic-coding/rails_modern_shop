@@ -32,7 +32,6 @@ gem "erb_lint", require: false
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "capybara"
-  gem "webdrivers"
   gem "rspec-rails", "~> 6.0.0"
   gem "factory_bot_rails", "~> 6.2"
   gem "faker", "~> 3.2.0"
@@ -51,6 +50,8 @@ end
 group :test do
   gem "simplecov", "~> 0.22.0", require: false
   gem "webmock"
+  gem "selenium-webdriver"
+  # gem "webdrivers"
 end
 
 # gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
