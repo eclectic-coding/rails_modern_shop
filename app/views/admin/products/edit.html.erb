@@ -58,7 +58,7 @@
 
             <div class="my-4">
               <%= f.submit t("update"), class: "btn btn-primary me-3" %>
-              <%= f.submit t("cancel"), class: "btn btn-outline-primary" %>
+              <%= link_to t("cancel"), admin_product_path(@product), class: "btn btn-outline-primary" %>
             </div>
           </div>
       <% end %>
