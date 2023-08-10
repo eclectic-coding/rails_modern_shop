@@ -1,27 +1,27 @@
-<div class="table-responsive">
-  <%= turbo_frame_tag "products_table", target: "_top" do %>
+<%= turbo_frame_tag "products_table" do %>
+  <div class="table-responsive">
     <table class="table">
       <thead>
         <tr>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig("product_filters", "column") == "title" %>
             <%= sort_link(column: "title", label: t(".title_label"), resource: "Product", link: "admin_products") %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "title" %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig("product_filters", "column") == "categories.name" %>
             <%= sort_link(column: "categories.name", label: t(".category_label"), resource: "Product", link: "admin_products") %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "categories.name" %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig("product_filters", "column") == "quantity" %>
             <%= sort_link(column: "quantity", label: t(".quantity"), resource: "Product", link: "admin_products") %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "quantity" %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig("product_filters", "column") == "price" %>
             <%= sort_link(column: "price", label: t(".price_label"), resource: "Product", link: "admin_products") %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "price" %>
           </th>
           <th class="position-relative" scope="col">
-            <%= sort_indicator if session.dig("product_filters", "column") == "product_available" %>
             <%= sort_link(column: "product_available", label: t(".status_label"), resource: "Product", link: "admin_products") %>
+            <%= sort_indicator if session.dig("product_filters", "column") == "product_available" %>
           </th>
           <th scope="col"></th>
         </tr>
@@ -38,7 +38,7 @@
             <tr class="align-middle" id="<%= dom_id(product) %>">
               <td class="col-4">
                 <span class="d-inline-block text-truncate" style="max-width: 300px">
-                  <%= link_to product.title, admin_product_path(product) %>
+                  <%= link_to product.title, admin_product_path(product), target: "_top" %>
                 </span>
               </td>
               <td>
@@ -56,13 +56,13 @@
         <% end %>
       </tbody>
     </table>
+  </div>
 
-    <%= tag.div class: "row" do %>
-      <div class="col-12 d-flex justify-content-between align-items-center px-3">
-        <%== pagy_info(pagy) %>
-        <%== pagy_bootstrap_nav(pagy) %>
-      </div>
-    <% end unless pagy.nil? %>
+  <%= tag.div class: "row" do %>
+    <div class="col-12 d-flex justify-content-between align-items-center px-3">
+      <%== pagy_info(pagy) %>
+      <%== pagy_bootstrap_nav(pagy) %>
+    </div>
+  <% end unless pagy.nil? %>
 
-  <% end %>
-</div>
+<% end %>
