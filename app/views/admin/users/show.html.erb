@@ -1,9 +1,5 @@
 <div class="container container-md-fluid">
-  <div class="row mb-3">
-    <div class="col-12 col-lg-5 justify-content-start align-items-start mb-lg-2">
-      <h1 class="mb-2 mb-lg-0 text-truncate h3"><%= t(".users_profile", username: @user.name) %></h1>
-    </div>
-  </div>
+  <%= render(Shared::PageTitleComponent.new(title: t(".users_profile", username: @user.name))) %>
 
   <div class="card">
     <div class="card-header">

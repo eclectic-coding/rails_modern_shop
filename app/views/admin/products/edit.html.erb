@@ -1,9 +1,5 @@
 <div class="container container-md-fluid">
-  <div class="row mb-3">
-    <div class="col-12">
-      <h1 class="mb-2 mb-lg-0 h3"><%= @product.title %></h1>
-    </div>
-  </div>
+  <%= render(Shared::PageTitleComponent.new(title: @product.title)) %>
 
   <div class="card">
     <div class="card-body">
