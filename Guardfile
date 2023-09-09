@@ -34,7 +34,7 @@ guard "livereload" do
 
   # file types LiveReload may optimize refresh for
   compiled_exts = extensions.values.uniq
-  watch(%r{public/.+\.(#{compiled_exts * '|'})})
+  watch(%r{public/.+\.(#{compiled_exts * "|"})})
 
   extensions.each do |ext, type|
     watch(%r{
@@ -49,7 +49,7 @@ guard "livereload" do
   end
 
   # file needing a full reload of the page anyway
-  watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
+  watch(%r{app/views/.+\.(#{rails_view_exts * "|"})$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{config/locales/.+\.yml})
 end
