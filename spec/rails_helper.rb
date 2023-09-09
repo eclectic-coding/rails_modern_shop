@@ -30,6 +30,10 @@ RSpec.configure do |config|
     WebMock.allow_net_connect!
   end
 
+  config.before(:all, type: :system) do
+    WebMock.allow_net_connect!
+  end
+
   config.include FactoryBot::Syntax::Methods
   config.include Warden::Test::Helpers
   config.include Devise::Test::IntegrationHelpers, type: :request # to sign_in user by Devise

@@ -7,8 +7,8 @@ RSpec.describe Admin::ProductStatusComponent, type: :component do
     login_as(create(:user, :admin))
   end
 
-  xit "renders for admin archived product" do
-    product = create(:product, product_available: false)
+  it "renders for admin archived product" do
+    product = create(:product, product_available: false, quantity: 1)
     render_inline(described_class.new(product: product))
 
     expect(rendered_content).to include("Archived")

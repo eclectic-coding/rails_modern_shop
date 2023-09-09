@@ -13,7 +13,7 @@ class Admin::ProductsController < ApplicationController
   def list
     @pagy, @products = pagy(filter!(Product), items: 10)
 
-    render(partial: "admin/products/products", locals: {products: @products, pagy: @pagy})
+    render(partial: "products", locals: {products: @products, pagy: @pagy})
   end
 
   def show

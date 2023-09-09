@@ -22,7 +22,7 @@
       <tbody>
         <% users.each do |user| %>
           <%= content_tag :tr, class: "align-middle", id: dom_id(user) do %>
-            <td><%= link_to user.name, admin_user_path(user) %></td>
+            <td><%= link_to user.name, admin_user_path(user), target: "_top" %></td>
             <td><%= user.email %></td>
             <td class="text-capitalize"><%= user.role %></td>
             <td>-</td>

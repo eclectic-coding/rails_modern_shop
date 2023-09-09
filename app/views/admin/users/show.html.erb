@@ -1,14 +1,10 @@
 <div class="container container-md-fluid">
-  <div class="row mb-3">
-    <div class="col-12 col-lg-5 justify-content-start align-items-start mb-lg-2">
-      <h1 class="mb-2 mb-lg-0 text-truncate h3"><%= t(".users_profile", username: @user.name) %></h1>
-    </div>
-  </div>
+  <%= render(Shared::PageTitleComponent.new(title: t(".users_profile", username: @user.name))) %>
 
   <div class="card">
     <div class="card-header">
-      <div class="row">
-        <h2 class="h5 col"><%= @user.name %></h2>
+      <div class="row align-items-center">
+        <h2 class="h5 col mb-0"><%= @user.name %></h2>
         <div class="col">
           <%= link_to "Login As", "#", class: "btn btn-outline-primary float-end me-1" %>
           <%= link_to "Edit", "#", class: "btn btn-primary float-end me-1" %>

@@ -1,5 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Category, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "creat a category" do
+    it "category has a humanized name" do
+      category = create(:category, name: "my category")
+      expect(category.human_name).to eq("My category")
+    end
+  end
 end

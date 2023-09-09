@@ -14,7 +14,7 @@ RSpec.describe "AdminSortProducts", type: :system do
   end
 
   describe "sorting by title", type: :system, js: true do
-    xit "sorts ascending by title" do
+    it "sorts ascending by title" do
       find("a", text: "Title").click
 
       within "tbody tr:nth-child(1)" do
@@ -22,7 +22,7 @@ RSpec.describe "AdminSortProducts", type: :system do
       end
     end
 
-    xit "sorts descending by title" do
+    it "sorts descending by title" do
       find("a", text: "Title").click
       find("a", text: "Title").click
 
@@ -43,7 +43,7 @@ RSpec.describe "AdminSortProducts", type: :system do
   end
 
   describe "sorting by quantity", type: :system, js: true do
-    xit "sorts ascending by quantity" do
+    it "sorts ascending by quantity" do
       find("a", text: "Quantity").click
 
       within "tbody tr:nth-child(1)" do
