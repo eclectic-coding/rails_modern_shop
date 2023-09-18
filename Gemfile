@@ -41,7 +41,7 @@ end
 group :development do
   gem "web-console"
   gem "fuubar", "~> 2.5", ">= 2.5.1"
-  gem "guard", "~> 2.17"
+  gem "guard", "~> 2.18"
   gem "guard-rspec", "~> 4.7", ">= 4.7.3"
   gem "bundle-audit"
   gem "overcommit"
