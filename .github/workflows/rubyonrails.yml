@@ -67,6 +67,9 @@ jobs:
         with:
           node-version: "18"
           cache: "yarn"
+          
+      - name: Yarn build
+        run: yarn build
 
       - name: Setup test database
         run: bin/rails db:schema:load
