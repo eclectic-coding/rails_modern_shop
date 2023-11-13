@@ -24,7 +24,7 @@ gem "name_of_person"
 gem "pundit"
 gem "inline_svg", "~> 1.8"
 gem "faraday", "~> 2.7", ">= 2.7.9"
-gem "pagy", "~> 6.0.4"
+gem "pagy", "~> 6.2.0"
 gem "view_component", "~> 3.6.0"
 gem "honeybadger", "~> 5.2", ">= 5.2.1"
 gem "erb_lint", require: false
