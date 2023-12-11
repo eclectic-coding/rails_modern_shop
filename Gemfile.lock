@@ -159,7 +159,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashdiff (1.0.1)
-    honeybadger (5.2.1)
+    honeybadger (5.4.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -417,7 +417,7 @@ DEPENDENCIES
   fuubar (~> 2.5, >= 2.5.1)
   guard (~> 2.17)
   guard-rspec (~> 4.7, >= 4.7.3)
-  honeybadger (~> 5.2, >= 5.2.1)
+  honeybadger (~> 5.4)
   image_processing
   inline_svg (~> 1.8)
   jbuilder
